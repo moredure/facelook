@@ -9,8 +9,8 @@ def home():
     """Return rendered home page template"""
     return render_template('index.html', items=range(100))
 
-@app.route('/facelook', methods=['POST'])
-def facelook():
+@app.route('/detect', methods=['POST'])
+def detect():
     """Face detection.
     Detect face on the photo and 
     return json with the result of presence/abcense of face analyze
