@@ -1,2 +1,16 @@
 .vagrant/
 *.pyc
+*.egg-info
+*.db
+*.swp
+*.swo
+*.zip
+*.egg
+*.orig
+*~
+
+.eggs
+dist
+build
+docs/output
+docs/_build/
