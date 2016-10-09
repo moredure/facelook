@@ -31,9 +31,9 @@ def detect():
         resp['error'] = 'Broken file!'
         app.logger.error('Broken file!')
         return json.dumps(resp)
-        
+
     img = ImageService.tocvimage(img_stream)
-    detector = cv2cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = detector.detectMultiScale(img, scaleFactor=1.1, minNeighbors=5,
             minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
