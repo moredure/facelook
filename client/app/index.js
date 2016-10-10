@@ -1,4 +1,4 @@
-const styles = require('./css/style.scss');
+require('./css/style.scss');
 const $ = require('jquery');
 const Rx = require('rxjs');
 
