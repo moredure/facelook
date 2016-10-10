@@ -3,6 +3,7 @@ Face detection web-service
 
 ## up
 ```bash
+cd ~/facelook
 vagrant up && vagrant ssh
 ```
 
