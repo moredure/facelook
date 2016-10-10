@@ -1,8 +1,9 @@
-import base64
 import imghdr
 import numpy as np
 import cv2
 from StringIO import StringIO
+
+HAARCASCADE_PATH = "haarcascade_frontalface_default.xml"
 
 class ImageService:
     @staticmethod
@@ -17,8 +18,15 @@ class ImageService:
 
     @staticmethod
     def tocvimage(stream):
-        img = stream.read()
-        img = np.asarray(bytearray(img), dtype='uint8')
-        img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+        arr = np.asarray(bytearray(stream.read()), dtype=np.uint8)
+        img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
         return img
+
+    @staticmethod
+    def detectfaces(img):
+        detector = cv2.CascadeClassifier(HAARCASCADE_PATH)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5,
+                minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
+        return faces
         
