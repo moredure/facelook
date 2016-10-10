@@ -15,9 +15,12 @@ Vagrant.configure(VAGRANT_VERSION) do |config|
     sudo echo "sudo ln /dev/null /dev/raw1394" >> #{HOME}/.bashrc
     source $_
     sudo apt-get update
-    sudo apt-get install --force-yes -y git \
+    sudo apt-get install --force-yes -y build-essential \
+      git \
       python-pip \
       libopencv-dev python-opencv
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    sudo apt-get install -y nodejs
     cd #{HOME}/#{PROJECT_NAME}
     sudo pip install -r requirements.txt
   SHELL
