@@ -1,4 +1,29 @@
 {% extends "layout.html" %}
 {% block body %}
-        <h1 class="b-hello-world">Hello, World!11</h1>
+    <aside class="b-results">
+        <ul class="b-result-list">
+            <li class="b-result-list__item">
+                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
+            </li>
+            <li class="b-result-list__item">
+                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
+            </li>
+            <li class="b-result-list__item">
+                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
+            </li>
+            <li class="b-result-list__item">
+                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
+            </li>
+        </ul>
+    </aside>
+    <main class="b-container">
+        <header class="b-header">
+            <div class="b-header__logo">facelook</div>
+        </header>
+        <div class="b-upload-box">
+            <div class="b-upload-box__handler"></div>
+        </div>
+        <div class="b-darkness"></div>
+    </main>
+    
 {% endblock %}

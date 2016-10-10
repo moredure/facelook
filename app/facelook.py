@@ -5,6 +5,9 @@ from flask import Flask, render_template, json, request
 
 app = Flask(__name__)
 
+if os.environ['DEBUG'] == '1':
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+
 @app.route('/')
 def index():
     """Return rendered index page template"""
