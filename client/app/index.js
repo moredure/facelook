@@ -1,5 +1,3 @@
 require('./css/style.scss');
-const $ = require('jquery');
-const Rx = require('rxjs');
 
-console.log('Hello, World!');
+console.log('Hello, World!11');

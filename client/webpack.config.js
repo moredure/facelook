@@ -38,6 +38,11 @@ module.exports = {
             'style-loader',
             `css${NODE_ENV === 'development' ? '' : '?minimize'}`
             )
+      },
+      {
+        test: /\.js$/,
+        loader: "eslint-loader",
+        exclude: /node_modules/
       }
     ]
   },

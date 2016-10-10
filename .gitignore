@@ -8,7 +8,7 @@
 *.egg
 *.orig
 *~
-
+npm-debug.log
 .eggs
 dist
 build
