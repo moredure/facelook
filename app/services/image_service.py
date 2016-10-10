@@ -18,12 +18,14 @@ class ImageService:
 
     @staticmethod
     def tocvimage(stream):
+        """Convert bytestream to cv compatible image"""
         arr = np.asarray(bytearray(stream.read()), dtype=np.uint8)
         img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
         return img
 
     @staticmethod
     def detectfaces(img):
+        """Detect faces and return them"""
         detector = cv2.CascadeClassifier(HAARCASCADE_PATH)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5,
