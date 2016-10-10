@@ -1,0 +1,25 @@
+{
+  "name": "facelook",
+  "version": "1.0.0",
+  "description": "Face detection service webUI",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "$(npm bin)/webpack",
+    "build": "NODE_ENV=production $(npm bin)/webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^1.13.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "node-sass": "^3.10.1",
+    "css-loader": "^0.25.0"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "rxjs": "^5.0.0-beta.12"
+  }
+}
