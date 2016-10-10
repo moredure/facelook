@@ -14,11 +14,12 @@ Vagrant.configure(VAGRANT_VERSION) do |config|
     sudo sed s/#force_color_prompt=yes/force_color_prompt=yes/ --in-place ~/.bashrc
     sudo echo "sudo ln /dev/null /dev/raw1394" >> #{HOME}/.bashrc
     source $_
-    sudo apt-get update
-    sudo apt-get install --force-yes -y build-essential \
-      git \
+    sudo apt-get update && sudo apt-get install --force-yes -y zsh git \
+      build-essential \
       python-pip \
       libopencv-dev python-opencv
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+    sudo chsh -s /bin/zsh
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     sudo apt-get install -y nodejs
     cd #{HOME}/#{PROJECT_NAME}
