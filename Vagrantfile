@@ -23,5 +23,7 @@ Vagrant.configure(VAGRANT_VERSION) do |config|
     sudo apt-get install -y nodejs
     cd #{HOME}/#{PROJECT_NAME}
     sudo pip install -r requirements.txt
+    cd #{HOME}/#{PROJECT_NAME}/client
+    npm install
   SHELL
 end
