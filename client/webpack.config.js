@@ -29,15 +29,8 @@ module.exports = {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
             'style-loader',
-            `css${NODE_ENV === 'development' ? '' : '?minimize'}!sass`
+            `raw${NODE_ENV === 'development' ? '' : '?minimize'}!sass`
         )
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-            'style-loader',
-            `css${NODE_ENV === 'development' ? '' : '?minimize'}`
-            )
       },
       {
         test: /\.js$/,
@@ -48,7 +41,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('../css/style.css'),
-    new webpack.NoErrorsPlugin(),
+    // new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV)
     })

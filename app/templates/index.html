@@ -2,17 +2,9 @@
 {% block body %}
     <aside class="b-results">
         <ul class="b-result-list">
-            <li class="b-result-list__item">
-                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
-            </li>
-            <li class="b-result-list__item">
-                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
-            </li>
-            <li class="b-result-list__item">
-                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
-            </li>
-            <li class="b-result-list__item">
-                <img class="b-smart-img" src="{{ url_for('static', filename='favicon.png') }}">
+            <li class="b-result-list__item b-result-list__item--correct">
+                <img class="b-smart-img" src="{{ url_for('static', filename='images/img1.jpg') }}">
+                <div class="b-smart-img-status"></div>
             </li>
         </ul>
     </aside>
@@ -21,9 +13,11 @@
             <div class="b-header__logo">facelook</div>
         </header>
         <div class="b-upload-box">
-            <div class="b-upload-box__handler"></div>
+            <label class="b-upload-box__handler">
+                <div class="b-upload-box__status"></div>
+                <input id="b-file-upload" class="b-files" type="file" multiple>
+            </label>
         </div>
         <div class="b-darkness"></div>
     </main>
-    
 {% endblock %}
