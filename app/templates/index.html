@@ -1,14 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
-    <aside class="b-results">
-        <ul class="b-result-list">
-            <li class="b-result-list__item b-result-list__item--correct">
-                <img class="b-smart-img" src="{{ url_for('static', filename='images/img1.jpg') }}">
-                <div class="b-smart-img-status"></div>
-            </li>
-        </ul>
-    </aside>
     <main class="b-container">
+        <aside class="b-results">
+            <ul class="b-result-list"></ul>
+        </aside>
         <header class="b-header">
             <div class="b-header__logo">facelook</div>
         </header>
