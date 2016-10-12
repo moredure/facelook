@@ -1,19 +1,19 @@
 require('./css/style.scss');
 const $ = require('jquery');
-const Rx = require('rxjs');
 const Api = require('./api')
 const $filesUploader = $('.b-upload-box__status');
 const $files = $(document.querySelector('.b-files'));
 const $results = $('.b-result-list');
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/static/cache.js', { scope: '/static/' })
-  .then(function(reg) {
-    console.log('Registration succeeded. Scope is ' + reg.scope);
-  }).catch(function(error) {
-    console.log('Registration failed with ' + error);
-  });
-};
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('/static/cache.js').then(function(reg) {
+//     // регистрация сработала
+//     console.log('Registration succeeded. Scope is ' + reg.scope);
+//   }).catch(function(error) {
+//     // регистрация прошла неудачно
+//     console.log('Registration failed with ' + error);
+//   });
+// };
 
 var results = [];
 
@@ -78,7 +78,7 @@ $files
 
 $filesUploader
 .on({
-	'dragenter': function(ev) {
+	'dragover': function(ev) {
 	  ev.preventDefault();
 	  $filesUploader.addClass('b-upload-box__status--drop');
 	},

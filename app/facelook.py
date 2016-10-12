@@ -7,9 +7,7 @@ from flask import Flask, render_template, json, request
 from flask_cors import cross_origin
 
 app = Flask(__name__)
-
-if environ['DEBUG'] and environ['DEBUG'] == '1':
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 ROOT_PATH = path.abspath(path.dirname(__file__))
 HAARCASCADE_PATH = ROOT_PATH + '/res/cascades/haarcascade_frontalface_default.xml'
@@ -23,8 +21,22 @@ def index():
 @cross_origin()
 def detect():
     """Face detection.
+
     Detect face on the photo and 
     return json with the result of presence/abcense of face analyze
+
+    Request format:
+    Content-Type: application/json
+    { 
+        "data": "string_b64_uri_encoded" 
+    }
+
+    Response format:
+    Content-Type: application/json
+    { 
+        "result": [true|false], 
+        "error": "error_msg_or_empty" 
+    }
     """
     resp = dict(result=False, error='')
     whitelist=['png', 'jpeg']
@@ -41,14 +53,17 @@ def detect():
                 minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
         if len(faces):
             resp.update(result=True)
+
     except ValueError, err:
         resp.update(error='Unsupported mime-type')
         app.logger.error(str(err.message))
         return json.dumps(resp), 415
+
     except TypeError:
         resp.update(error='File is broken!')
         app.logger.error('File is broken!'),
         return json.dumps(resp), 400
+        
     return json.dumps(resp)
 
 @app.errorhandler(404)

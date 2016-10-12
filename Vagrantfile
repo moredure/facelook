@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANT_VERSION) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo sed s/#force_color_prompt=yes/force_color_prompt=yes/ --in-place ~/.bashrc
     sudo echo "sudo ln /dev/null /dev/raw1394" >> #{HOME}/.bashrc
-    source $_
+    source #{HOME}/.bashrc
     sudo apt-get update && sudo apt-get install --force-yes -y zsh git \
       build-essential \
       python-pip \
