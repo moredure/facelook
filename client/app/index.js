@@ -1,11 +1,21 @@
 require('./css/style.scss');
 const $ = require('jquery');
 const Rx = require('rxjs');
+const Api = require('./api')
 const $filesUploader = $('.b-upload-box__status');
-const $files = $('.b-files').first();
+const $files = $(document.querySelector('.b-files'));
 const $results = $('.b-result-list');
 
-const results = [];
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/static/cache.js', { scope: '/static/' })
+  .then(function(reg) {
+    console.log('Registration succeeded. Scope is ' + reg.scope);
+  }).catch(function(error) {
+    console.log('Registration failed with ' + error);
+  });
+};
+
+var results = [];
 
 function addToResults(file) {
 	results.push(file);
@@ -16,17 +26,11 @@ function addStatusToResults(i) {
 	return function(status) {
 		try {
 			results[i].faceDetection = JSON.parse(status);
-			console.log(status);
-			console.log(results)
 			return Promise.resolve(results[i]);
 		} catch(err) {
 			return Promise.reject('Parse result error!');
 		}
 	};
-}
-
-function uploadImage(b64file) {
-	return $.post('/detect', { data: b64file }).promise();
 }
 
 function readFile(file) {
@@ -42,33 +46,49 @@ function readFile(file) {
 	});
 }
 
-$files.on('change', function() {
-	let files = [].slice.call(this.files);
-	results = []
+function addResultToDOM(file) {
+	let correctStatus = file.faceDetection.result ? 'correct' : 'incorrect'
+  let elements = `<li class="b-result-list__item b-result-list__item--${correctStatus}">
+    <img class="b-smart-img" src="${file.result}">
+    <div class="b-smart-img-status"></div>
+  </li>`;
+  if($results.children().length === 0) {
+  	$('.b-container').addClass('b-container--active');
+  	$('.b-darkness').one('click', function() {
+  		$('.b-container').removeClass('b-container--active');
+  	})
+  }
+  $results.append(elements);
+}
+
+$files
+.on('change', function(ev, dropedFiles) {
 	$(".b-result-list").empty();
+	results = [];
+	let files = [].slice.call(dropedFiles || this.files);
 	files.forEach(function(file, i) {
 		readFile(file)
 		.then(addToResults)
-		.then(uploadImage)
+		.then(Api.uploadImage)
 		.then(addStatusToResults(i))
-		.then(addResultsToDOM)
-		.catch(err => console.error(err));
-	})
-		
+		.then(addResultToDOM)
+		.catch(err => alert(err));
+	});
 })
 
 $filesUploader
-.on('drag dragstart dragend dragover dragenter dragleave drop', ev => {
-  ev.preventDefault();
-  ev.stopPropagation();
-})
-.on('dragover dragenter', function() {
-  $filesUploader.addClass('b-upload-box__status--drop');
-})
-.on('dragleave dragend drop', function() {
-  $filesUploader.removeClass('b-upload-box__status--drop');
-})
-.on('drop', function(ev) {
-  $files.files = ev.originalEvent.dataTransfer.files;
-  $files.trigger('change');
+.on({
+	'dragenter': function(ev) {
+	  ev.preventDefault();
+	  $filesUploader.addClass('b-upload-box__status--drop');
+	},
+  'dragleave': function() {
+  	$filesUploader.removeClass('b-upload-box__status--drop');
+	},
+	'drop': function(ev) {
+		ev.preventDefault();
+	  $files.files = ev.originalEvent.dataTransfer.files;
+	  $files.trigger('change', [$files.files]);
+	  $filesUploader.removeClass('b-upload-box__status--drop');
+	}
 });

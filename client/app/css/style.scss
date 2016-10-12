@@ -55,7 +55,7 @@
         }
     }
     &__handler, &__status {
-        opacity: 0.5;
+        opacity: 0.66;
     }
 }
 
@@ -63,6 +63,8 @@
     position: absolute;
     height: 100%;
     width: 100%;
+    border-left: 1px solid black;
+    left: -1px;
     transition: 0.35s ease-in;
      .b-darkness {
         width: 100%;
@@ -86,6 +88,7 @@
 
 .b-results {
     width: 30%;
+    left: -30%;
     height: 100%;
     position: absolute;
     overflow: auto;
@@ -110,7 +113,7 @@
         }
         &--incorrect, &--correct {
             .b-smart-img-status {
-                background-size: 100px 100px;
+                background-size: 50% 50%;
             }
         }
     }
