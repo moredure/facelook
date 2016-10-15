@@ -5,6 +5,7 @@ from urllib import urlopen
 from numpy import asarray, uint8
 from flask import Flask, render_template, json, request
 from flask_cors import cross_origin
+from flask.ext.jsontools import jsonapi
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -19,6 +20,7 @@ def index():
 
 @app.route('/detect', methods=['POST', 'PUT'])
 @cross_origin()
+@jsonapi
 def detect():
     """Face detection.
 
@@ -57,14 +59,14 @@ def detect():
     except ValueError, err:
         resp.update(error='Unsupported mime-type')
         app.logger.error(str(err.message))
-        return json.dumps(resp), 415
+        return resp, 415
 
     except TypeError:
         resp.update(error='File is broken!')
         app.logger.error('File is broken!'),
-        return json.dumps(resp), 400
+        return resp, 400
         
-    return json.dumps(resp)
+    return resp
 
 @app.errorhandler(404)
 def not_found(err):

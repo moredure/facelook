@@ -24,12 +24,8 @@ function addToResults(file) {
 
 function addStatusToResults(i) {
 	return function(status) {
-		try {
-			results[i].faceDetection = JSON.parse(status);
+			results[i].faceDetection = status;
 			return Promise.resolve(results[i]);
-		} catch(err) {
-			return Promise.reject('Parse result error!');
-		}
 	};
 }
 
