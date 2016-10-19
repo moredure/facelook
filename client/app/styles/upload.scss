@@ -1,0 +1,62 @@
+.b-upload {
+    width: 520px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px 0 #D7DADB,0 0 5px 1px #e3e4e8;
+    &__header {
+        height: 55px;
+        font-size: 1.1em;
+        line-height: 55px;
+        padding: 0 20px;
+        border-bottom: 1px solid #e7e8ec;
+        background: #f2f4f7 url(../images/correct.svg) 470px 15px no-repeat;
+        background-size: 25px 25px;
+    }
+    &__body {
+        text-align: center;
+        padding: 20px;
+    }
+    &-box {
+        padding: 1px;
+        border: 3px solid transparent;
+        &-desc {
+            line-height: 2.8em;
+            font-size: 1em;    
+        }
+    }
+    &-box--active {
+        background: url(../images/download.svg) center center no-repeat;
+        background-size: 40% 40%;
+        border: 3px dashed $main-blue-color;
+        * {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+    &-btn {
+        padding: 10px 30px 10px;
+        margin: 20px 5px 5px 5px;
+        font-size: 0.9em;
+        display: inline-block;
+        outline: none;
+        vertical-align: top;
+        cursor: pointer;
+        line-height: 1em;
+        text-align: center;
+        background-color: #5e81a8;
+        color: #fff;
+        border: 0;
+        border-radius: 2px;
+        &:hover {
+            background-color: #6888ad;
+        }
+    }
+    &__footer {
+        border-top: 1px solid #e7e8ec;
+        height: 55px;
+        font-size: 0.9em;
+        text-align: center;
+        line-height: 55px;
+        color: grey;
+        padding: 0 20px;
+    }
+}

@@ -1,0 +1,10 @@
+.b-header {
+    width: 100%;
+    height: $main-header-hight;
+    padding: 0 20px;
+    background-color: $main-blue-color;
+    &__logo {
+        font: bold 1.4em/#{$main-header-hight} -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
+        color: white;
+    }
+}

@@ -1,0 +1,17 @@
+.b-face-detection {
+    height: calc(100% - #{$main-header-hight + $footer-hight});
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.b-powered-by {
+    width: 100%;
+    height: $footer-hight;
+    text-align: center;
+    font-size: 0.8em;
+    line-height: $footer-hight;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+    color: grey;
+}

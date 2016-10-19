@@ -3,3 +3,4 @@ Jinja2==2.8
 nose
 flask-cors
 flask_jsontools
+uwsgi

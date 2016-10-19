@@ -29,19 +29,23 @@ module.exports = {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
             'style-loader',
-            `raw${NODE_ENV === 'development' ? '' : '?minimize'}!sass`
+            'css?minimize!sass'
         )
       },
       {
         test: /\.js$/,
-        loader: "eslint-loader",
+        loaders: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
+      },
+      {
+        test: /\.svg$/,
+        loader: 'url-loader'
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin('../css/style.css'),
     // new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('../css/style.css'),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV)
     })
