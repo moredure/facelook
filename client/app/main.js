@@ -4,8 +4,8 @@ const {post, fromEvent, fromReader} = DOM;
 const uploadInput = document.getElementById('js-files');
 const dropZone = document.querySelector('#js-drop-files');
 let lastEnter;
-let uploadInput$ = fromEvent(uploadInput, 'change');
-let dropZone$ = fromEvent(dropZone, 'drop');
+const uploadInput$ = fromEvent(uploadInput, 'change');
+const dropZone$ = fromEvent(dropZone, 'drop');
 
 const dragOver$ = Observable.merge(
   fromEvent(dropZone, 'dragover'),
@@ -17,9 +17,7 @@ const dragLeave$ = Observable.merge(
   dropZone$)
   .do(deactivateUploadBox);
 
-Observable
-.merge(dragOver$, dragLeave$)
-.subscribe();
+const dragEffects$ = Observable.merge(dragOver$, dragLeave$);
 
 const upload$ = Observable
 .merge(dropZone$, uploadInput$)
@@ -33,6 +31,7 @@ const upload$ = Observable
 .bufferWithCount(2)
 .map(processFaces);
 
+dragEffects$.subscribe();
 upload$.subscribe(renderToResults);
 
 /**
