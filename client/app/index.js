@@ -1,6 +1,6 @@
 /* global NODE_ENV */
 import './styles/index.scss';
-import * as Rx from 'rx-dom';
+import {Observable, DOM} from 'rx-dom';
 
 if (NODE_ENV === 'production') {
   if ('serviceWorker' in navigator) {
@@ -10,13 +10,13 @@ if (NODE_ENV === 'production') {
   }
 }
 
-const {Observable, DOM} = Rx;
 const {post, fromEvent, fromReader, click} = DOM;
-const uploadInput = document.getElementById('js-files');
-const dropZone = document.getElementById('js-drop-files');
-const results = document.querySelector('.b-results');
-const resultsClose = document.querySelector('.b-results__close');
-const resultsImages = document.querySelector('.b-results__images');
+const {getElementById, createElement, getElementsByClassName} = document;
+const uploadInput = getElementById('js-files');
+const dropZone = getElementById('js-drop-files');
+const results = getElementById('js-results');
+const resultsClose = getElementById('js-results__close');
+const resultsImages = getElementById('js-results__images');
 const uploadInput$ = fromEvent(uploadInput, 'change');
 const dropZone$ = fromEvent(dropZone, 'drop');
 let lastEnter;
@@ -85,7 +85,7 @@ function toObservable(el) {
  * Add loading bar to the UI
  */
 function loadStart() {
-  let loadBar = document.createElement('div');
+  let loadBar = createElement('div');
   loadBar.classList.add('b-results__loading');
   resultsImages.appendChild(loadBar);
 }
@@ -120,9 +120,7 @@ function wait(files) {
  * @param {Image} image image to render
  */
 function renderToResults(image) {
-  let loadBar = toArray(
-    document.getElementsByClassName('b-results__loading')
-  ).shift();
+  let loadBar = toArray(getElementsByClassName('b-results__loading')).shift();
   resultsImages.replaceChild(image, loadBar);
 }
 
@@ -133,7 +131,7 @@ function renderToResults(image) {
  * @return {Image} image
  */
 function processFaces([faces, photo]) {
-  const canvas = document.createElement('canvas');
+  const canvas = createElement('canvas');
   const ctx = canvas.getContext("2d");
   [canvas.width, canvas.height] = [photo.width, photo.height];
   ctx.drawImage(photo, 0, 0);
