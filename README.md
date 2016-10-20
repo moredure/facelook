@@ -20,7 +20,7 @@ client:
 cd ~/facelook/client
 npm run dev
 ```
-Then go to host machine localhost:1337
+Then go to host machine localhost:1337/static/index.html
 
 ## run tests
 ```bash
@@ -28,4 +28,4 @@ nosetests
 ```
 
 ## todo
->CI, deploy, install
+>nginx, uwsgi, docker!!!
