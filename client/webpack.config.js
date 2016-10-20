@@ -27,10 +27,7 @@ module.exports = {
     loaders: [
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css?minimize!sass'
-        )
+        loader: ExtractTextPlugin.extract('style-loader', 'css?minimize!sass')
       },
       {
         test: /\.js$/,
@@ -44,7 +41,7 @@ module.exports = {
     ]
   },
   plugins: [
-    // new webpack.NoErrorsPlugin(),
+    new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('../css/style.css'),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV)

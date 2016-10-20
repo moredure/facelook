@@ -2,7 +2,6 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    font-size: 16px;
+    font: normal 16px $main-font;
     background-color: $bg-color;
-    font-family: -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
 }

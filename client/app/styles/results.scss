@@ -33,20 +33,17 @@
     &__image {
         display: block;
         max-width: 66%;
-        margin: 20px auto;
+        margin: 30px auto;
         height: auto;
         opacity: 1;
-        box-shadow: 0 1px 5px 0 #d7dadb,0 0 5px 1px #e3e4e8;
-        background-color: white;
+        box-shadow: 0 0 10px -5px black;
+        background-color: #fff;
         animation-name: fadein;
         animation-duration: 0.85s;
-        @keyframes fadein {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        transition: all 0.25s;
+        &:hover {
+            transform: scale(1.1);
+            transition: all 0.35s;
         }
     }
     &__loading {
@@ -54,7 +51,7 @@
         width: 100px;
         background: transparent url(../images/progress.svg) center center no-repeat;
         background-size: 100% 100%;
-        margin: 20px auto;
+        margin: 30px auto;
         animation-name: spin;
         animation-duration: 1s;
         animation-iteration-count: infinite;

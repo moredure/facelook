@@ -8,7 +8,7 @@ from flask_jsontools import jsonapi
 
 ROOT_PATH = path.abspath(path.dirname(__file__))
 HAARCASCADE_PATH = ROOT_PATH + '/res/cascades/haarcascade_frontalface_default.xml'
-WHITELIST=['png', 'jpeg', 'gif']
+WHITELIST = ['png', 'jpeg', 'gif']
 
 app = Flask(__name__)
 

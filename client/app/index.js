@@ -11,6 +11,7 @@ if (NODE_ENV === 'production') {
   }
 }
 
+const EXTENSIONS_WHITELIST = ['png', 'jpeg', 'gif'];
 const uploadInput = document.getElementById('js-files');
 const dropZone = document.getElementById('js-drop-files');
 const results = document.getElementById('js-results');
@@ -34,14 +35,15 @@ const upload$ = Observable
   .map(normalizeFiles)
   .map(toArray)
   .map(filterImages)
+  .map(filterImagesInWhiteList)
   .do(wait)
   .flatMap(toObservable)
   .do(loadStart)
-  .flatMap(faceDetectionAPI)
+  .concatMap(faceDetectionAPI)
   .bufferWithCount(2)
-  .flatMap(normalizeForCanvassing)
+  .concatMap(normalizeForCanvassing)
   .bufferWithCount(2)
-  .map(processFaces)
+  .map(renderFaces)
   .do(renderToResults);
 
 const resultsClose$ = click(results)
@@ -52,6 +54,24 @@ upload$
   .merge(dragEffects$)
   .merge(resultsClose$)
   .subscribe();
+
+/**
+ * [isInWhiteList description]
+ * @param  {[type]}  f [description]
+ * @return {Boolean}   [description]
+ */
+function isInWhiteList({type}) {
+  return type.match(EXTENSIONS_WHITELIST.join('|'));
+}
+
+/**
+ * [filterImagesInWhiteList description]
+ * @param  {[type]} files [description]
+ * @return {[type]}       [description]
+ */
+function filterImagesInWhiteList(files) {
+  return files.filter(isInWhiteList);
+}
 
 /**
  * Clear html nodes from b-results__images
@@ -129,7 +149,7 @@ function renderToResults(image) {
  * @param  {Image} photo [description]
  * @return {Image} image
  */
-function processFaces([faces, photo]) {
+function renderFaces([faces, photo]) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext("2d");
   [canvas.width, canvas.height] = [photo.width, photo.height];
@@ -138,8 +158,17 @@ function processFaces([faces, photo]) {
     ctx.lineWidth = "5";
     ctx.strokeStyle = "#507299";
     faces.forEach(face => ctx.strokeRect(...face));
-    photo.src = canvas.toDataURL("image/png");
+    ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'green';
+  } else {
+    ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'tomato';
   }
+  ctx.fill();
+  ctx.lineWidth = 5;
+  ctx.strokeStyle = '#fff';
+  ctx.stroke();
+  photo.src = canvas.toDataURL("image/png");
   photo.classList.add('b-results__image');
   return photo;
 }
@@ -150,11 +179,11 @@ function processFaces([faces, photo]) {
  * @param  {String} imgAsURI [description]
  * @return {Observable} pair of canvassing primitives
  */
-function normalizeForCanvassing([{response}, imgAsURI]) {
+function normalizeForCanvassing([response, imgAsURI]) {
   let faceless = new Image();
   faceless.src = imgAsURI;
-  const faceless$ = Observable.of(faceless);
-  const detectFaceCallResponse$ = Observable.of(response);
+  const faceless$ = Observable.return(faceless);
+  const detectFaceCallResponse$ = Observable.return(response.response);
   return detectFaceCallResponse$.concat(faceless$);
 }
 
