@@ -1,59 +1,57 @@
 /* global NODE_ENV */
 import './styles/index.scss';
 import {Observable, DOM} from 'rx-dom';
+const {post, fromEvent, fromReader, click} = DOM;
 
 if (NODE_ENV === 'production') {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/static/cache.js')
-    .then(console.info.bind(console, 'Worker installed:'))
-    .catch(console.error.bind(console, 'Error:'));
+      .then(console.info.bind(console, 'Worker installed:'))
+      .catch(console.error.bind(console, 'Error:'));
   }
 }
 
-const {post, fromEvent, fromReader, click} = DOM;
-const {getElementById, createElement, getElementsByClassName} = document;
-const uploadInput = getElementById('js-files');
-const dropZone = getElementById('js-drop-files');
-const results = getElementById('js-results');
-const resultsClose = getElementById('js-results__close');
-const resultsImages = getElementById('js-results__images');
+const uploadInput = document.getElementById('js-files');
+const dropZone = document.getElementById('js-drop-files');
+const results = document.getElementById('js-results');
+const resultsClose = document.getElementById('js-results__close');
+const resultsImages = document.getElementById('js-results__images');
 const uploadInput$ = fromEvent(uploadInput, 'change');
 const dropZone$ = fromEvent(dropZone, 'drop');
 let lastEnter;
 
 const dragOver$ = fromEvent(dropZone, 'dragover')
-.merge(fromEvent(document, 'dragenter'))
-.do(activateUploadBox);
+  .merge(fromEvent(document, 'dragenter'))
+  .do(activateUploadBox);
 
-const dragLeave$ = fromEvent(document, 'dragleave')
-.merge(dropZone$)
-.do(deactivateUploadBox);
+const dragLeave$ = fromEvent(document, 'dragleave').merge(dropZone$)
+  .do(deactivateUploadBox);
 
 const dragEffects$ = dragOver$.merge(dragLeave$);
 
 const upload$ = Observable
-.merge(dropZone$, uploadInput$)
-.map(normalizeFiles)
-.map(toArray)
-.map(filterImages)
-.do(wait)
-.flatMap(toObservable)
-.do(loadStart)
-.flatMap(faceDetectionAPI)
-.bufferWithCount(2)
-.flatMap(normalizeForCanvassing)
-.bufferWithCount(2)
-.map(processFaces)
-.do(renderToResults);
+  .merge(dropZone$, uploadInput$)
+  .map(normalizeFiles)
+  .map(toArray)
+  .map(filterImages)
+  .do(wait)
+  .flatMap(toObservable)
+  .do(loadStart)
+  .flatMap(faceDetectionAPI)
+  .bufferWithCount(2)
+  .flatMap(normalizeForCanvassing)
+  .bufferWithCount(2)
+  .map(processFaces)
+  .do(renderToResults);
 
 const resultsClose$ = click(results)
-.filter(exitableTargets)
-.do(clearResultsImages);
+  .filter(exitableTargets)
+  .do(clearResultsImages);
 
 upload$
-.merge(dragEffects$)
-.merge(resultsClose$)
-.subscribe();
+  .merge(dragEffects$)
+  .merge(resultsClose$)
+  .subscribe();
 
 /**
  * Clear html nodes from b-results__images
@@ -85,7 +83,7 @@ function toObservable(el) {
  * Add loading bar to the UI
  */
 function loadStart() {
-  let loadBar = createElement('div');
+  const loadBar = document.createElement('div');
   loadBar.classList.add('b-results__loading');
   resultsImages.appendChild(loadBar);
 }
@@ -120,7 +118,8 @@ function wait(files) {
  * @param {Image} image image to render
  */
 function renderToResults(image) {
-  let loadBar = toArray(getElementsByClassName('b-results__loading')).shift();
+  const loadBars = document.getElementsByClassName('b-results__loading');
+  const loadBar = toArray(loadBars).shift();
   resultsImages.replaceChild(image, loadBar);
 }
 
@@ -131,7 +130,7 @@ function renderToResults(image) {
  * @return {Image} image
  */
 function processFaces([faces, photo]) {
-  const canvas = createElement('canvas');
+  const canvas = document.createElement('canvas');
   const ctx = canvas.getContext("2d");
   [canvas.width, canvas.height] = [photo.width, photo.height];
   ctx.drawImage(photo, 0, 0);
@@ -147,15 +146,15 @@ function processFaces([faces, photo]) {
 
 /**
  * Normalize for easy rendering
- * @param  {Response} jsonResponse [description]
+ * @param  {Response} response [description]
  * @param  {String} imgAsURI [description]
  * @return {Observable} pair of canvassing primitives
  */
-function normalizeForCanvassing([jsonResponse, imgAsURI]) {
+function normalizeForCanvassing([{response}, imgAsURI]) {
   let faceless = new Image();
   faceless.src = imgAsURI;
   const faceless$ = Observable.of(faceless);
-  const detectFaceCallResponse$ = Observable.of(jsonResponse.response);
+  const detectFaceCallResponse$ = Observable.of(response);
   return detectFaceCallResponse$.concat(faceless$);
 }
 
