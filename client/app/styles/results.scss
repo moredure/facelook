@@ -5,23 +5,13 @@
     width: 100%;
     height: 100%;
     display: none;
-    overflow: auto;
     &--active {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: block;
+        overflow: auto;
         animation: darken;
         animation-duration: .55s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
-    }
-    &--image {
-        .b-results__image {
-            display: block;
-        }
-        .b-results__loading {
-            display: none;
-        }
     }
     &__close {
         width: 20px;
@@ -32,21 +22,45 @@
         background: url(../images/incorrect.svg) center center no-repeat;
         cursor: pointer;
         background-size: 20px 20px;
+        opacity: 0.8;
+        &:hover {
+            opacity: 1;
+        }
+    }
+    &__images {
+        width: 100%;
     }
     &__image {
-        display: none;
+        display: block;
+        max-width: 66%;
+        margin: 20px auto;
         height: auto;
-        max-width: 100%;
+        opacity: 1;
+        box-shadow: 0 1px 5px 0 #d7dadb,0 0 5px 1px #e3e4e8;
+        background-color: white;
+        animation-name: fadein;
+        animation-duration: 0.85s;
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     }
     &__loading {
-        height: 50%;
-        width: 50%;
+        height: 100px;
+        width: 100px;
         background: transparent url(../images/progress.svg) center center no-repeat;
-        background-size: 50% 50%;
+        background-size: 100% 100%;
+        margin: 20px auto;
         animation-name: spin;
         animation-duration: 1s;
         animation-iteration-count: infinite;
         opacity: 0.8;
-
+        &--completed {
+            display: none;
+        }
     }
 }
