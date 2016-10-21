@@ -5,9 +5,10 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+
 module.exports = {
   entry: path.join(__dirname, '/app/index.js'),
-  output: {
+    output: {
     path: path.join(__dirname, '..', 'app/static/javascript'),
     filename: 'bundle.js'
   },
@@ -23,6 +24,7 @@ module.exports = {
   resolveLoader: {
     root: path.join(__dirname, 'node_modules')
   },
+
   module: {
     loaders: [
       {
@@ -30,9 +32,10 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style-loader', 'css?minimize!sass')
       },
       {
+        include: path.resolve(__dirname, '../src/js'),
+        exclude: /(node_modules)/,
         test: /\.js$/,
-        loaders: ['babel-loader', 'eslint-loader'],
-        exclude: /node_modules/
+        loaders: ['babel-loader', 'eslint-loader']
       },
       {
         test: /\.svg$/,
