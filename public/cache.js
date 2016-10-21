@@ -1,28 +1,23 @@
 var CACHE = 'cache-and-update';
 
-self.addEventListener('install', function(evt) {
-  evt.waitUntil(precache());
+self.addEventListener('install', function(ev) {
+  ev.waitUntil(precache());
 });
 
-self.addEventListener('fetch', function(evt) {
-  evt.respondWith(fromCache(evt.request));
-  evt.waitUntil(update(evt.request));
+self.addEventListener('fetch', function(ev) {
+  ev.respondWith(fromCache(ev.request));
+  ev.waitUntil(update(ev.request));
 });
 
 /**
  * Precache resourse
  * @func
- * @return {Promise}
+ * @return {Promise} result of adding files to cache
  */
 function precache() {
   return caches.open(CACHE).then(function(cache) {
     return cache.addAll([
       './css/style.css',
-      './images/correct.svg',
-      './images/incorrect.svg',
-      './images/photo.svg',
-      './images/progress.svg',
-      './images/download.svg',
       './javascript/bundle.js',
       './favicon.png',
       '/'

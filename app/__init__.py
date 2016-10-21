@@ -1,2 +1,2 @@
-from facelook import api
+from facelook import application
  

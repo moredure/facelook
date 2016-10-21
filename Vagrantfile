@@ -13,8 +13,9 @@ Vagrant.configure(VAGRANT_VERSION) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update && sudo apt-get install --force-yes -y git \
       build-essential \
-      python-pip \
-      libopencv-dev python-opencv
+      python-pip python-dev \
+      libopencv-dev python-opencv \
+      nginx uwsgi uwsgi-plugin-python
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     sudo apt-get install -y nodejs
     cd #{HOME}/#{PROJECT_NAME}

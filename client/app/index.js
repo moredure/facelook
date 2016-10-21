@@ -5,13 +5,15 @@ const {post, fromEvent, fromReader, click} = DOM;
 
 if (NODE_ENV === 'production') {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/static/cache.js')
+    navigator.serviceWorker.register('/cache.js')
       .then(console.info.bind(console, 'Worker installed:'))
       .catch(console.error.bind(console, 'Error:'));
   }
 }
 
+const API_ENDPOINT = '/api';
 const EXTENSIONS_WHITELIST = ['png', 'jpeg', 'gif'];
+const FACE_DETECTION_ENDPOINT = `${API_ENDPOINT}/detect`;
 const uploadInput = document.getElementById('js-files');
 const dropZone = document.getElementById('js-drop-files');
 const results = document.getElementById('js-results');
@@ -56,18 +58,18 @@ upload$
   .subscribe();
 
 /**
- * [isInWhiteList description]
- * @param  {[type]}  f [description]
- * @return {Boolean}   [description]
+ * Check file extension to be in whitelist
+ * @param  {File}  f file which will be checked by this predicate
+ * @return {Boolean} result of checking extension
  */
 function isInWhiteList({type}) {
   return type.match(EXTENSIONS_WHITELIST.join('|'));
 }
 
 /**
- * [filterImagesInWhiteList description]
- * @param  {[type]} files [description]
- * @return {[type]}       [description]
+ * Pass elements of array only in white list
+ * @param  {Array} files array of files
+ * @return {Array} files after filtering
  */
 function filterImagesInWhiteList(files) {
   return files.filter(isInWhiteList);
@@ -156,10 +158,10 @@ function renderFaces([faces, photo]) {
   ctx.drawImage(photo, 0, 0);
   if (faces.length) {
     ctx.lineWidth = "5";
-    ctx.strokeStyle = "#507299";
+    ctx.strokeStyle = '#507299';
     faces.forEach(face => ctx.strokeRect(...face));
     ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = '#507299';
   } else {
     ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
     ctx.fillStyle = 'tomato';
@@ -205,7 +207,7 @@ function faceDetectionAPI(file) {
   let form = new FormData();
   form.append('file', file);
   const detectFaceCall$ = post({
-    url: '/detect',
+    url: FACE_DETECTION_ENDPOINT,
     responseType: 'json',
     body: form
   });
