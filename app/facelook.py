@@ -11,7 +11,7 @@ CASCADE_PATH = path.abspath(ROOT_PATH) + '/haarcascade_frontalface_default.xml'
 WHITELIST = ['png', 'jpeg', 'gif']
 
 application = Flask(__name__)
-application.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+application.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
 @application.route('/api/detect', methods=['POST', 'GET'])
 @cross_origin()
