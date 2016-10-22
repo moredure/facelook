@@ -8,8 +8,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: path.join(__dirname, '/app/index.js'),
   output: {
-    path: path.join(__dirname, '..', 'public/javascript'),
-    filename: 'bundle.js'
+    path: path.join(__dirname, '..', 'app/static/javascript'),
+    filename: 'bundle.js' 
   },
   devtool: NODE_ENV === 'development' ? 'cheap-inline-module-source-map' : null,
   watch: NODE_ENV === 'development',
@@ -48,6 +48,7 @@ module.exports = {
     })
   ]
 };
+
 if (NODE_ENV === 'production') {
   module.exports.plugins.push(
     new webpack.optimize.UglifyJsPlugin({

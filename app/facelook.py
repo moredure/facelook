@@ -2,7 +2,7 @@ import cv2
 import imghdr
 from os import path, environ
 from numpy import asarray, uint8
-from flask import Flask, request
+from flask import Flask, request, render_template, send_from_directory
 from flask_cors import cross_origin
 from flask_jsontools import jsonapi
 
@@ -11,8 +11,9 @@ CASCADE_PATH = path.abspath(ROOT_PATH) + '/haarcascade_frontalface_default.xml'
 WHITELIST = ['png', 'jpeg', 'gif']
 
 application = Flask(__name__)
+application.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-@application.route('/detect', methods=['POST'])
+@application.route('/api/detect', methods=['POST', 'GET'])
 @cross_origin()
 @jsonapi
 def detect():
@@ -25,6 +26,8 @@ def detect():
     Content-Type: application/json
     list{list{x1, y1, width, height}}
     """
+    if request.method == 'GET':
+        return 'FUCK!'
     file = request.files['file']
     if imghdr.what(file) not in WHITELIST:
         return dict(error='Unsupported extension!'), 415
@@ -35,3 +38,11 @@ def detect():
     faces = detector.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=6,
             minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
     return faces.tolist() if len(faces) else []
+
+@application.route('/')
+def index():
+    return render_template('index.html')
+
+@application.route('/cache.js')
+def sw():
+    return send_from_directory('sw', 'cache.js')

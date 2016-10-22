@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANT_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.synced_folder ".", "#{HOME}/#{PROJECT_NAME}"
   config.vm.box_check_update = false
-  config.vm.network "forwarded_port", guest: 5000, host: 1337
+  config.vm.network "forwarded_port", guest: 80, host: 1337
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update && sudo apt-get install --force-yes -y git \

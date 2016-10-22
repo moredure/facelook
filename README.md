@@ -1,13 +1,19 @@
 # facelook
 Face detection web-service
 
-## up
+## up with Docker
+```sh
+sudo docker build .
+sudo docker run -d --restart=always -t ImageName
+```
+
+## up with Vagrant
 ```bash
 cd ~/facelook
 vagrant up && vagrant ssh
 ```
 
-## run dev
+## build and dev
 server:
 ```bash
 cd ~/facelook
@@ -15,41 +21,18 @@ export FLASK_APP=app/facelook.py
 export FLASK_DEBUG=1
 flask run --host=0.0.0.0
 ```
-client:
+client-dev:
 ```bash
 cd ~/facelook/client
 npm run dev
 ```
-Then go to host machine localhost:1337/static/index.html
+clien-prod:
+```bash
+cd ~/facelook/client
+npm run build
+```
 
 ## run tests
-```bash
+```sh
 nosetests
 ```
-
-## nginx config
-```
-server {
-    listen 80;
-    server_name www.facelook.com facelook.com;
-    
-    location / {
-        root /var/www/facelook/public;
-    }
-
-    location /api {
-        uwsgi_pass unix:/tmp/facelook.sock;
-        uwsgi_param SCRIPT_NAME /api; 
-        uwsgi_modifier1 30;
-        include /etc/nginx/uwsgi_params;
-    }
-}
-```
-
-## uwsgi params
-```sh
-uwsgi --socket /tmp/facelook.sock --plugin python --wsgi-file wsgi.py  --uid www-data --gid www-data
-```
-
-## todo
->docker!!!

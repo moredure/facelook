@@ -1,19 +1,11 @@
-/* global NODE_ENV */
 import './styles/index.scss';
 import {Observable, DOM} from 'rx-dom';
+
 const {post, fromEvent, fromReader, click} = DOM;
-
-if (NODE_ENV === 'production') {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/cache.js')
-      .then(console.info.bind(console, 'Worker installed:'))
-      .catch(console.error.bind(console, 'Error:'));
-  }
-}
-
 const API_ENDPOINT = '/api';
 const EXTENSIONS_WHITELIST = ['png', 'jpeg', 'gif'];
 const FACE_DETECTION_ENDPOINT = `${API_ENDPOINT}/detect`;
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
 const uploadInput = document.getElementById('js-files');
 const dropZone = document.getElementById('js-drop-files');
 const results = document.getElementById('js-results');
@@ -36,6 +28,7 @@ const upload$ = Observable
   .merge(dropZone$, uploadInput$)
   .map(normalizeFiles)
   .map(toArray)
+  .map(filterMaxFileSize)
   .map(filterImages)
   .map(filterImagesInWhiteList)
   .do(wait)
@@ -52,10 +45,30 @@ const resultsClose$ = click(results)
   .filter(exitableTargets)
   .do(clearResultsImages);
 
-upload$
-  .merge(dragEffects$)
+dragEffects$
   .merge(resultsClose$)
   .subscribe();
+
+upload$
+  .subscribe();
+
+/**
+ * isLowerThenMaxFileSize
+ * @param  {File}  file checked file
+ * @return {Boolean} result of checking file size
+ */
+function isLowerThenMaxFileSize(file) {
+  return file.size < MAX_FILE_SIZE;
+}
+
+/**
+ * filterMaxFileSize
+ * @param  {Array} files array of files to filter based on file size
+ * @return {Array} filtered array
+ */
+function filterMaxFileSize(files) {
+  return files.filter(isLowerThenMaxFileSize);
+}
 
 /**
  * Check file extension to be in whitelist
@@ -164,7 +177,7 @@ function renderFaces([faces, photo]) {
     ctx.fillStyle = '#507299';
   } else {
     ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'tomato';
+    ctx.fillStyle = 'red';
   }
   ctx.fill();
   ctx.lineWidth = 5;
@@ -255,3 +268,10 @@ function normalizeFiles({dataTransfer, target}) {
   return dataTransfer ? dataTransfer.files : target.files;
 }
 
+/* global NODE_ENV */
+if (NODE_ENV === 'production') {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/cache.js')
+      .catch(console.error.bind(console, 'Error:'));
+  }
+}
