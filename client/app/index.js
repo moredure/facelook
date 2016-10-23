@@ -12,20 +12,21 @@ import {
   renderFaces,
   removeChildren
 } from './utils';
+
 const {fromEvent, click} = DOM;
 const uploadInput = document.getElementById('js-files');
 const dropZone = document.getElementById('js-drop-files');
 const results = document.getElementById('js-results');
 const resultsClose = document.getElementById('js-results__close');
 const resultsImages = document.getElementById('js-results__images');
+
 const uploadInput$ = fromEvent(uploadInput, 'change');
 const dropZone$ = fromEvent(dropZone, 'drop');
-
 const dragOver$ = fromEvent(dropZone, 'dragover')
   .merge(fromEvent(document, 'dragenter'))
   .do(activateUploadBox);
-
-const dragLeave$ = fromEvent(document, 'dragleave').merge(dropZone$)
+const dragLeave$ = fromEvent(document, 'dragleave')
+  .merge(dropZone$)
   .do(deactivateUploadBox);
 
 const dragEffects$ = dragOver$.merge(dragLeave$);
@@ -53,10 +54,9 @@ const resultsClose$ = click(results)
 
 dragEffects$
   .merge(resultsClose$)
+  .merge(upload$)
   .subscribe();
 
-upload$
-  .subscribe();
 /**
  * Clear html nodes from b-results__images
  */

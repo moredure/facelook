@@ -1,4 +1,4 @@
-# Vagrantfile for facelook app machine
+# Vagrantfile for develpment
 # with provision opencv and project dependencies
 VAGRANT_VERSION = "2"
 PROJECT_NAME = 'facelook'
