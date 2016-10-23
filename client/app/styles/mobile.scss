@@ -1,0 +1,24 @@
+@media only screen and (max-width: 550px) {
+    .b-app {
+        background-color: #fff;
+    }
+    .b-face-detection {
+        align-items: center;
+    }
+    .b-upload {
+        box-shadow: none;
+        margin-top: -10%;
+        &__header {
+            display: none;
+        }
+        &__footer {
+            display: none;
+        }
+        &-box-desc {
+            line-height: 2.1em;
+        }
+    }
+    .b-powered-by {
+        display: none;
+    }
+}

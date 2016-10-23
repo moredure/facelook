@@ -38,10 +38,17 @@ const resultsClose$ = DOM.click(results)
   .filter(exitableTargets)
   .do(clearResultsImages);
 
-export default dragndrop$
-  .merge(resultsClose$)
-  .merge(upload$)
-  .merge(network$);
+/**
+ * Initialization
+ */
+export default function App() {
+  console.info('Started!');
+  dragndrop$
+    .merge(resultsClose$)
+    .merge(upload$)
+    .merge(network$)
+    .subscribe();
+}
 
 /**
  * Clear html nodes from b-results__images

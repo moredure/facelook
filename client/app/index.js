@@ -1,6 +1,7 @@
-import app$ from './main';
+import {DOM} from 'rx-dom';
+import App from './main';
 
-app$.subscribe();
+DOM.ready().subscribe(App);
 
 /* global NODE_ENV */
 if (NODE_ENV === 'production') {

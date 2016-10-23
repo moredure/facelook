@@ -3,8 +3,25 @@
     height: $main-header-hight;
     padding: 0 20px;
     background-color: $main-blue-color;
+    display: flex;
+    justify-content: flex-start;
     &__logo {
-        font: bold 1.4em/#{$main-header-hight} -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
+        font: bold 1.4em/#{$main-header-hight} $main-font;
         color: white;
+    }
+    &__network-status {
+        margin: 10px 0 10px auto;
+        padding: 5px 7px;
+        font: bold 1em/#{$main-header-hight - 30px} $main-font;
+        background-color: tomato;
+        border-radius: 5px;
+        color: white;
+        display: none;
+    }
+    &__network-status--offline {
+        display: block;
+        animation-name: fadein;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
     }
 }
