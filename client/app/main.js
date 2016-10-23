@@ -34,9 +34,7 @@ const upload$ = Observable
   .map(renderFaces)
   .do(renderToResults);
 
-const resultsClose$ = DOM.click(results)
-  .filter(exitableTargets)
-  .do(clearResultsImages);
+const resultsClose$ = DOM.click(resultsClose).do(clearResultsImages);
 
 /**
  * Initialization
@@ -56,15 +54,6 @@ export default function App() {
 function clearResultsImages() {
   results.classList.remove('b-results--active');
   removeChildren(resultsImages);
-}
-
-/**
- * Check event target to be in the exitable elements
- * @param  {Node} options.target html element which is source of the event
- * @return {Boolean} exitable or not
- */
-function exitableTargets({target}) {
-  return [resultsClose, results, resultsImages].includes(target);
 }
 
 /**
@@ -90,6 +79,10 @@ function wait(files) {
  */
 function renderToResults(image) {
   const loadBars = document.getElementsByClassName('b-results__loading');
-  const loadBar = toArray(loadBars).shift();
-  resultsImages.replaceChild(image, loadBar);
+  if (loadBars.length) {
+    const loadBar = toArray(loadBars).shift();
+    resultsImages.replaceChild(image, loadBar);
+  } else {
+    removeChildren(resultsImages);
+  }
 }
