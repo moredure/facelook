@@ -1,5 +1,4 @@
 #!/bin/sh
-
 cd client && npm run build
 if [ $? -eq 0 ] 
 then
