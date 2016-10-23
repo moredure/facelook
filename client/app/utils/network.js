@@ -28,5 +28,4 @@ export const network$ = offline$
 function onlineStatus(ev) {
   filesLabel.disabled = !filesLabel.disabled;
   msg.classList.toggle('b-header__network-status--offline');
-  msg.classList.toggle('b-header__network-status--online');
 }
