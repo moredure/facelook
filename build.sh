@@ -9,4 +9,3 @@ then
 	docker rmi mikefaraponov/facelook:latest
 	docker build . -t mikefaraponov/facelook:latest
 fi
-
