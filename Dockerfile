@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Dockerfiles
 
 RUN apt-get update && apt-get install --force-yes -y \
-    git openssh-server \
+    git \
     python \
     build-essential \
     python-pip \
@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install --force-yes -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN mkdir -p /var/run/sshd
 COPY nginx.conf /etc/nginx/sites-available/default
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 

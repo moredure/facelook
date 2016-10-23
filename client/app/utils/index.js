@@ -7,7 +7,7 @@ import {MAX_FILE_SIZE, EXTENSIONS_WHITELIST} from '../config';
  * @return {Boolean} result of checking file size
  */
 export function isLowerThenMaxFileSize(file) {
-  return file.size < MAX_FILE_SIZE;
+  return file.size <= MAX_FILE_SIZE;
 }
 
 /**
