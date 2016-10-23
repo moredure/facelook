@@ -35,7 +35,7 @@ def detect():
     img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
     detector = cv2.CascadeClassifier(CASCADE_PATH)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5,
+    faces = detector.detectMultiScale(gray, scaleFactor=1.15, minNeighbors=5,
             minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
     return faces.tolist() if len(faces) else []
 
