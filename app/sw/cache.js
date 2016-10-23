@@ -1,5 +1,5 @@
 'use strict';
-var CACHE = 'cache-v1';
+const CACHE = 'v1';
 
 self.addEventListener('install', function(ev) {
   ev.waitUntil(precache());

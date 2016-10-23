@@ -2,18 +2,20 @@ import cv2
 import imghdr
 from os import path, environ
 from numpy import asarray, uint8
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, \
+    render_template, send_from_directory
 from flask_cors import cross_origin
 from flask_jsontools import jsonapi
 
 ROOT_PATH = path.dirname(__file__)
-CASCADE_PATH = path.abspath(ROOT_PATH) + '/haarcascade_frontalface_default.xml'
+CASCADE_PATH = path.abspath(ROOT_PATH) + \
+    '/haarcascade_frontalface_default.xml'
 WHITELIST = ['png', 'jpeg', 'gif']
 
 application = Flask(__name__)
 application.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
-@application.route('/api/detect', methods=['POST', 'GET'])
+@application.route('/api/detect', methods=['POST'])
 @cross_origin()
 @jsonapi
 def detect():
@@ -26,8 +28,6 @@ def detect():
     Content-Type: application/json
     list{list{x1, y1, width, height}}
     """
-    if request.method == 'GET':
-        return 'FUCK!'
     file = request.files['file']
     if imghdr.what(file) not in WHITELIST:
         return dict(error='Unsupported extension!'), 415
