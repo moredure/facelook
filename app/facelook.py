@@ -33,16 +33,10 @@ def detect():
     Content-Type: application/json
     list{list{x1, y1, width, height}}
     """
-    # try:
-    file = request.files['file']
-    # print (type(file))
-    # if type(file) is not FileStorage:
-    #     return dict(error='File is too big!'), 420
-    # file.seek(0, os.SEEK_END)
-    # print(file.tell())
-    # file.seek(0,0)
-    # # if file.tell() > 1000000:
-    # #     return dict(error='File is too big!'), 420
+    try:
+        file = request.files['file']
+    except :
+        return dict(error='File is too big!'), 413
     if imghdr.what(file) not in WHITELIST:
         return dict(error='Unsupported extension!'), 415
     arr = asarray(bytearray(file.read()), dtype=uint8)
