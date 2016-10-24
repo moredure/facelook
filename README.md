@@ -3,8 +3,9 @@ Face detection web-service
 
 ## up with Docker
 ```sh
-sudo docker build .
-sudo docker run -d --restart=always -t ImageName
+chmod +x build.sh
+./build.sh
+docker run -d --restart=always -t mikefaraponov/facelook
 ```
 
 ## up with Vagrant
