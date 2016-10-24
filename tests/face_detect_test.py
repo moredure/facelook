@@ -10,16 +10,9 @@ from contextlib import contextmanager
 from flask import appcontext_pushed
 
 
-class ExtendedTestCase(unittest.TestCase):
 
-  def assertRaisesWithMessage(self, msg, func):
-    try:
-      func()
-      self.assertFail()
-    except Exception as inst:
-      self.assertEqual(inst.message, msg)
 
-class DetectFaceTestCase(ExtendedTestCase):
+class DetectFaceTestCase(unittest.TestCase):
     def setUp(self):
         self.app = application.test_client()
 
@@ -82,16 +75,13 @@ class DetectFaceTestCase(ExtendedTestCase):
         rv_as_list = ast.literal_eval(rv.data)
         self.assertEqual(len(rv_as_list), 1)
 
-    # def test_detect_toobig(self):
-    #     rv = self.detect('2mb.jpg')
-    #     # rv_as_list = ast.literal_eval(rv.data)
-    #     self.assertEqual(rv.data, '{\n  "error": "File is too big!"\n}')
-    #     assert False
+    def test_detect_toobig(self):
+        rv = self.detect('2mb.jpg')
+        self.assertEqual(rv.status_code, 413)
 
-    def test_detect_gif(self):
+    def test_detect_unsupported(self):
         rv = self.detect('1.gif')
-        # rv_as_list = ast.literal_eval(rv.data)
-        self.assertEqual(rv.data, '{\n  "error": "Unsupported extension!"\n}')
+        self.assertEqual(rv.status_code, 415)
         # assert False
 
     def test_detect_6faces(self):
@@ -120,7 +110,14 @@ class DetectFaceTestCase(ExtendedTestCase):
 
 
 
-
+        # class ExtendedTestCase(unittest.TestCase):
+        #
+        #   def assertRaisesWithMessage(self, msg, func):
+        #     try:
+        #       func()
+        #       self.assertFail()
+        #     except Exception as inst:
+        #       self.assertEqual(inst.message, msg)
 
 
 
