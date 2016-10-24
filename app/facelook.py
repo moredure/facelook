@@ -10,7 +10,7 @@ from flask_jsontools import jsonapi
 ROOT_PATH = path.dirname(__file__)
 CASCADE_PATH = path.abspath(ROOT_PATH) + \
     '/haarcascade_frontalface_default.xml'
-WHITELIST = ['png', 'jpeg', 'gif']
+WHITELIST = ['png', 'jpeg']
 
 application = Flask(__name__)
 application.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
