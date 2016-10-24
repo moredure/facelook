@@ -18,7 +18,7 @@ const resultsImages = document.getElementById('js-results__images');
 const uploadInput$ = DOM.fromEvent(uploadInput, 'change');
 const resultsClose$ = DOM.click(resultsClose).do(clearResultsImages);
 
-const processFacesFactory = function(ev) {
+const processFacesFactory = ev => {
   return Observable.of(ev)
     .map(normalizeFiles)
     .map(toArray)
