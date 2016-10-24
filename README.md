@@ -17,9 +17,7 @@ vagrant up && vagrant ssh
 server:
 ```bash
 cd ~/facelook
-export FLASK_APP=app/facelook.py
-export FLASK_DEBUG=1
-flask run --host=0.0.0.0
+FLASK_APP=app/facelook.py FLASK_DEBUG=1 flask run --host=0.0.0.0
 ```
 client-dev:
 ```bash
