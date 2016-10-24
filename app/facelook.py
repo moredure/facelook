@@ -46,5 +46,5 @@ def index():
 
 @application.route('/cache.js')
 def sw():
-    """Return js servise worker"""
+    """Return js serviсe worker"""
     return send_from_directory('sw', 'cache.js')
