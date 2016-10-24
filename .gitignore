@@ -14,3 +14,5 @@ dist
 build
 docs/output
 docs/_build/
+app/static/css/style.css
+app/static/javascript/bundle.js
