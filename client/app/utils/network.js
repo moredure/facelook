@@ -26,6 +26,7 @@ export const network$ = offline$
  * @param  {Event} ev [description]
  */
 function onlineStatus(ev) {
+  console.info('toggled');
   filesLabel.disabled = !filesLabel.disabled;
   msg.classList.toggle('b-header__network-status--offline');
 }
