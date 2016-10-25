@@ -88,7 +88,7 @@ export function renderFaces([faces, photo]) {
     ctx.strokeStyle = '#fff';
     ctx.stroke();
   }
-  photo.src = canvas.toDataURL("image/png");
+  photo.src = canvas.toDataURL("image/png", 1.0);
   photo.classList.add('b-results__image');
   return photo;
 }
