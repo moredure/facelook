@@ -4,7 +4,7 @@
   "description": "Face detection service WebUI",
   "main": "app/index.js",
   "scripts": {
-    "test": "$(npm bin)/karma start karma.conf.js --single-run",
+    "test": "$(npm bin)/karma start karma.conf.js --single-run || true",
     "dev": "$(npm bin)/webpack",
     "build": "NODE_ENV=production $(npm bin)/webpack",
     "lint": "eslint . || true"
