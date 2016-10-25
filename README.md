@@ -3,8 +3,9 @@ Face detection web-service
 
 ## up with Docker
 ```sh
-sudo docker build .
-sudo docker run -d --restart=always -t ImageName
+chmod +x build.sh
+./build.sh
+docker run -d --restart=always -t mikefaraponov/facelook
 ```
 
 ## up with Vagrant
@@ -17,9 +18,7 @@ vagrant up && vagrant ssh
 server:
 ```bash
 cd ~/facelook
-export FLASK_APP=app/facelook.py
-export FLASK_DEBUG=1
-flask run --host=0.0.0.0
+FLASK_APP=app/facelook.py FLASK_DEBUG=1 flask run --host=0.0.0.0
 ```
 client-dev:
 ```bash

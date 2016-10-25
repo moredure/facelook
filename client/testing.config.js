@@ -24,6 +24,14 @@ module.exports = {
     root: path.join(__dirname, 'node_modules')
   },
   module: {
+    preLoaders: [
+      {
+        test: /.spec\.js$/,
+        include: /specs/,
+        exclude: /(bower_components|node_modules)/,
+        loader: 'babel-loader'
+      }
+    ],
     loaders: [
       {
         test: /\.scss$/,
@@ -31,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loaders: ['babel-loader', 'eslint-loader'],
+        loaders: ['babel-loader'],
         exclude: /node_modules/
       },
       {
@@ -41,26 +49,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('../css/style.css'),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV)
     })
   ]
 };
-
-if (NODE_ENV === 'production') {
-  module.exports.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        /* eslint camelcase: ["error", {properties: "never"}] */
-        drop_console: true,
-        unsafe: true
-      },
-      output: {
-        comments: false
-      }
-    })
-  );
-}

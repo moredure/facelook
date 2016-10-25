@@ -11,14 +11,18 @@
         &__header {
             display: none;
         }
-        &__footer {
-            display: none;
-        }
         &-box-desc {
             line-height: 2.1em;
         }
     }
     .b-powered-by {
-        display: none;
+        color: #000;
+        &__join-us {
+            color: #000;
+            text-decoration: none;
+            &:hover {
+                border-bottom: 1px solid black;
+            }
+        }
     }
 }

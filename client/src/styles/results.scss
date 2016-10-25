@@ -33,7 +33,7 @@
     &__image {
         display: block;
         max-width: 66%;
-        margin: 30px auto;
+        margin: 40px auto;
         height: auto;
         opacity: 1;
         box-shadow: 0 0 10px -5px black;
@@ -42,7 +42,7 @@
         animation-duration: 0.85s;
         transition: all 0.25s;
         &:hover {
-            transform: scale(1.1);
+            transform: scale(1.02);
             transition: all 0.35s;
         }
     }
@@ -51,7 +51,7 @@
         width: 100px;
         background: transparent url(../images/progress.svg) center center no-repeat;
         background-size: 100% 100%;
-        margin: 30px auto;
+        margin: 40px auto;
         animation-name: spin;
         animation-duration: 1s;
         animation-iteration-count: infinite;

@@ -9,7 +9,7 @@
         padding: 0 20px;
         border-bottom: 1px solid #e7e8ec;
         background: #f2f4f7 url(../images/correct.svg) no-repeat;
-        background-position:  right 15px top 15px;
+        background-position: right 20px top 15px;
         background-size: 25px 25px;
     }
     &__body {
@@ -48,6 +48,10 @@
         border-radius: 2px;
         &:hover {
             background-color: #6888ad;
+        }
+        &[disabled] {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
     }
     &__footer {

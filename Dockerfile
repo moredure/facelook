@@ -26,5 +26,5 @@ COPY app /home/facelook/app
 COPY uwsgi.ini /home/facelook/uwsgi.ini
 COPY wsgi.py /home/facelook/wsgi.py
 
-EXPOSE 22 80
+EXPOSE 80
 CMD ["/usr/bin/supervisord"]

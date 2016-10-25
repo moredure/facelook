@@ -17,15 +17,14 @@ const offline$ = Observable.create(function(ob) {
   }, false);
 });
 
-export const network$ = offline$
-  .merge(online$)
-  .do(onlineStatus);
+export const network$ = offline$.merge(online$).do(onlineStatus);
 
 /**
  * Online status displayer
  * @param  {Event} ev [description]
  */
 function onlineStatus(ev) {
+  console.info('toggled');
   filesLabel.disabled = !filesLabel.disabled;
   msg.classList.toggle('b-header__network-status--offline');
 }

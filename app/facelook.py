@@ -13,7 +13,7 @@ CASCADE_PATH = path.abspath(ROOT_PATH) + \
 WHITELIST = ['png', 'jpeg']
 
 application = Flask(__name__)
-application.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+application.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 
 @application.route('/api/detect', methods=['POST'])
 @cross_origin()
@@ -37,7 +37,8 @@ def detect():
     arr = asarray(bytearray(file.read()), dtype=uint8)
     img = cv2.imdecode(arr, cv2.IMREAD_GRAYSCALE)
     detector = cv2.CascadeClassifier(CASCADE_PATH)
-    faces = detector.detectMultiScale(img, scaleFactor=1.15, minNeighbors=6,
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = detector.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=6,
             minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
     return faces.tolist() if len(faces) else []
 
@@ -48,5 +49,5 @@ def index():
 
 @application.route('/cache.js')
 def sw():
-    """Return js servise worker"""
+    """Return js service worker"""
     return send_from_directory('sw', 'cache.js')

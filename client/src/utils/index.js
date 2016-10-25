@@ -80,17 +80,15 @@ export function renderFaces([faces, photo]) {
     ctx.lineWidth = "5";
     ctx.strokeStyle = '#507299';
     faces.forEach(face => ctx.strokeRect(...face));
-    ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
-    ctx.fillStyle = '#507299';
   } else {
     ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
     ctx.fillStyle = 'red';
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
   }
-  ctx.fill();
-  ctx.lineWidth = 5;
-  ctx.strokeStyle = '#fff';
-  ctx.stroke();
-  photo.src = canvas.toDataURL("image/png");
+  photo.src = canvas.toDataURL("image/png", 1.0);
   photo.classList.add('b-results__image');
   return photo;
 }
