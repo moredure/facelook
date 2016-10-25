@@ -14,4 +14,11 @@
     line-height: $footer-hight;
     text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
     color: #fff;
+    &__join-us {
+        color: white;
+        text-decoration: none;
+        &:hover {
+            border-bottom: 1px solid white;
+        }
+    }
 }
