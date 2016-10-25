@@ -9,8 +9,9 @@ import {
   toArray, 
   isImage,
   normalizeFiles
-} from '../src/utils'
-import {MAX_FILE_SIZE, EXTENSIONS_WHITELIST} from '../src/config'
+} from '../src/utils';
+import {MAX_FILE_SIZE, EXTENSIONS_WHITELIST} from '../src/config';
+
 describe('Utils suite', function() {
   describe('isLowerThenMaxFileSize', function() {
     it('Should be an function', function() {
