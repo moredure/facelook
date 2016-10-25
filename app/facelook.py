@@ -20,7 +20,7 @@ application.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 @jsonapi
 def detect():
     """Face detection.
-    Detect face on the photo and 
+    Detect face on the photo and
     return json with the result of presence/abcense of face analyze
     Request format:
     Content-Type: multipart-encoded file
@@ -28,11 +28,14 @@ def detect():
     Content-Type: application/json
     list{list{x1, y1, width, height}}
     """
-    file = request.files['file']
+    try:
+        file = request.files['file']
+    except :
+        return dict(error='File is too big!'), 413
     if imghdr.what(file) not in WHITELIST:
         return dict(error='Unsupported extension!'), 415
     arr = asarray(bytearray(file.read()), dtype=uint8)
-    img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
+    img = cv2.imdecode(arr, cv2.IMREAD_GRAYSCALE)
     detector = cv2.CascadeClassifier(CASCADE_PATH)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = detector.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=6,
