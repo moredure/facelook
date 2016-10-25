@@ -30,12 +30,12 @@ def detect():
     """
     try:
         file = request.files['file']
-    except :
+    except:
         return dict(error='File is too big!'), 413
     if imghdr.what(file) not in WHITELIST:
         return dict(error='Unsupported extension!'), 415
     arr = asarray(bytearray(file.read()), dtype=uint8)
-    img = cv2.imdecode(arr, cv2.IMREAD_GRAYSCALE)
+    img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
     detector = cv2.CascadeClassifier(CASCADE_PATH)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = detector.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=6,
