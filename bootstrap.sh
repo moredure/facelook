@@ -31,6 +31,7 @@ sudo apt-get install docker-engine
 sudo service docker start
 sudo groupadd docker
 sudo usermod -aG docker $USER
+# Then log out and log in to make changes to docker
 
 # Color Prompt
 sudo sed s/#force_color_prompt=yes/force_color_prompt=yes/ --in-place #{HOME}/.bashrc
