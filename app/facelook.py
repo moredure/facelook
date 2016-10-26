@@ -51,3 +51,7 @@ def index():
 def sw():
     """Return js service worker"""
     return send_from_directory('sw', 'cache.js')
+
+@application.errorhandler(404)
+def page_not_found(e):
+    return "Not found!", 404
