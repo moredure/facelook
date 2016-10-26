@@ -11,8 +11,6 @@ module.exports = function(config) {
     files: [
       'specs/**/*.spec.js'
     ],
-    exclude: [
-    ],
     preprocessors: {
         'specs/**/*.spec.js': ['webpack', 'sourcemap']
     },
