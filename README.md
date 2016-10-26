@@ -10,7 +10,7 @@ build.sh script requires pre-installed node.js/npm and docker with created user 
 ```sh
 chmod +x build.sh
 ./build.sh
-docker run -d --restart=always -p 80:80 -t mikefaraponov/facelook
+docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook
 ```
 Last string cause builded docker container to run in background mode and forwards it port 80 to host port 80.
 
