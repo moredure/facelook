@@ -19,8 +19,9 @@ describe('Utils suite', function() {
     });
     it('Should return true if number lower then MAX_FILE_SIZE', function() {
       let file = {size: 10 * 1024};
-      expect(isLowerThenMaxFileSize(file)).to.be.a('Boolean');
-      expect(true).to.be.true;
+      const result = isLowerThenMaxFileSize(file);
+      expect(result).to.be.a('Boolean');
+      expect(result).to.be.true;
     });
   });
 
