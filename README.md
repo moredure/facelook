@@ -2,7 +2,7 @@
 
 ## Description
 Face detection web service.
-Project created as part of the course Agile Methodologies in ONPU with the support of Sigma Software Ukraine.
+Project created as part of the course Agile Methodologies in ONPU with the support of Sigma Software Ukraine mentors.
 
 ## Installation
 
