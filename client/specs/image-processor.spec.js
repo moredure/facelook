@@ -9,7 +9,7 @@ import {
   toArray, 
   isImage,
   normalizeFiles
-} from '../src/utils';
+} from '../src/utils/image-processor';
 import {MAX_FILE_SIZE, EXTENSIONS_WHITELIST} from '../src/config';
 
 describe('Utils suite', function() {

@@ -9,7 +9,7 @@ import {
   filterImagesInWhiteList, toObservable,
   normalizeForCanvassing, renderFaces,
   removeChildren
-} from './utils';
+} from './utils/image-processor';
 
 const uploadInput = document.getElementById('js-files');
 const results = document.getElementById('js-results');
