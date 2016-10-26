@@ -6,13 +6,22 @@ Face detection web service.
 ## Installation
 
 ### Build Docker image
-build.sh script requires pre-installed node.js/npm and docker with created user group docker for running without sudo permissions.
+build.sh script requires pre-installed [node/npm](https://nodejs.org/en/download/package-manager) and [Docker](https://docs.docker.com/engine/installation/) with created user group docker for running without sudo permissions.
 ```sh
 chmod +x build.sh
 ./build.sh
 docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook
 ```
 Last string cause builded docker container to run in background mode and forwards it port 80 to host port 80.
+
+
+### Pull Docker image from Docker registry
+If you want up our application you simply can pull Docker image from registry and then run it like in the previous paragraph.
+```sh
+docker pull mikefaraponov/facelook:latest
+docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook
+```
+
 
 ### Development
 This walkthrough requires pre-installed vagrant, virtual-box.
