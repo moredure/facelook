@@ -18,7 +18,7 @@ const resultsImages = document.getElementById('js-results__images');
 const uploadInput$ = DOM.fromEvent(uploadInput, 'change');
 const resultsClose$ = DOM.click(resultsClose).do(clearResultsImages);
 
-const processFacesFactory = ev => {
+export const processFacesFactory = ev => {
   return Observable.of(ev)
     .map(normalizeFiles)
     .map(toArray)
@@ -36,7 +36,7 @@ const processFacesFactory = ev => {
     .takeUntil(resultsClose$);
 };
 
-const upload$ = dropZone$
+export const upload$ = dropZone$
   .merge(uploadInput$)
   .flatMap(processFacesFactory)
   .do(renderToResults);
@@ -44,7 +44,7 @@ const upload$ = dropZone$
 /**
  * Initialization
  */
-export default function App() {
+export function App() {
   console.info('Started!');
   dragndrop$
     .merge(upload$)
@@ -56,7 +56,7 @@ export default function App() {
 /**
  * Clear html nodes from b-results__images
  */
-function clearResultsImages() {
+export function clearResultsImages() {
   results.classList.remove('b-results--active');
   removeChildren(resultsImages);
 }
@@ -64,7 +64,7 @@ function clearResultsImages() {
 /**
  * Add loading bar to the UI
  */
-function loadStart() {
+export function loadStart() {
   const loadBar = document.createElement('div');
   loadBar.classList.add('b-results__loading');
   resultsImages.appendChild(loadBar);
@@ -74,7 +74,7 @@ function loadStart() {
  * Loading state for css
  * @param {Array} files array of files
  */
-function wait(files) {
+export function wait(files) {
   if (files.length) results.classList.add('b-results--active');
 }
 
@@ -82,7 +82,7 @@ function wait(files) {
  * Render Images to results list
  * @param {Image} image image to render
  */
-function renderToResults(image) {
+export function renderToResults(image) {
   console.log(image);
   const loadBars = document.getElementsByClassName('b-results__loading');
   if (loadBars.length) {

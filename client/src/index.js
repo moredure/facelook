@@ -1,5 +1,5 @@
 import {DOM} from 'rx-dom';
-import App from './main';
+import {App} from './main';
 
 DOM.ready().subscribe(App);
 
