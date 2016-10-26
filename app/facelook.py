@@ -1,15 +1,10 @@
 import cv2
 import imghdr
-from os import path, environ
 from numpy import asarray, uint8
 from flask import Flask, request, send_from_directory
 from flask_cors import cross_origin
 from flask_jsontools import jsonapi
-
-ROOT_PATH = path.dirname(__file__)
-CASCADE_PATH = path.abspath(ROOT_PATH) + \
-    '/haarcascade_frontalface_default.xml'
-WHITELIST = ['png', 'jpeg']
+from config import CASCADE_PATH, WHITELIST
 
 application = Flask(__name__)
 application.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
