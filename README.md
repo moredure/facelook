@@ -59,6 +59,9 @@ Facelook allows you to upload images or an image and then system mark all faces 
 - [x] Docker build script
 - [ ] Travis CI
 - [ ] More unit-tests
+- [ ] Nginx https connections
+- [ ] Monetization
+- [ ] Google Analytics
 
 ## Credits
 * [@mikefaraponov](https://github.com/mikefaraponov)
