@@ -22,7 +22,6 @@ docker pull mikefaraponov/facelook:latest
 docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook
 ```
 
-
 ### Development
 This walkthrough requires pre-installed vagrant, virtual-box.
 To start Vagrant image simply do next steps:
