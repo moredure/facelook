@@ -2,8 +2,7 @@ import cv2
 import imghdr
 from os import path, environ
 from numpy import asarray, uint8
-from flask import Flask, request, \
-    render_template, send_from_directory
+from flask import Flask, request, send_from_directory
 from flask_cors import cross_origin
 from flask_jsontools import jsonapi
 
@@ -45,7 +44,7 @@ def detect():
 @application.route('/')
 def index():
     """Return home page"""
-    return render_template('index.html')
+    return send_from_directory('templates', 'index.html')
 
 @application.route('/cache.js')
 def sw():
