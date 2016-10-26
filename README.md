@@ -54,6 +54,12 @@ This will run unit tests for javascripts via karma test runner
 ## Usage
 Facelook allows you to upload images or an image and then system mark all faces it find on it with blue squere or if nothing found mark image with red circle at the top left corner.
 
+## Todo
+- [x] Vagrant support
+- [x] Docker build script
+- [ ] Travis CI
+- [ ] More unit-tests
+
 ## Credits
 * [@mikefaraponov](https://github.com/mikefaraponov)
 * [@wildkun](https://github.com/wildkun)
