@@ -13,7 +13,7 @@ CASCADE_PATH = path.abspath(ROOT_PATH) + \
 WHITELIST = ['png', 'jpeg']
 
 application = Flask(__name__)
-application.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
+application.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
 @application.route('/api/detect', methods=['POST'])
 @cross_origin()

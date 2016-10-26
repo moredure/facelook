@@ -18,13 +18,13 @@ describe('Utils suite', function() {
       expect(isLowerThenMaxFileSize).to.be.an('function');
     });
     it('Should return true if number lower then MAX_FILE_SIZE', function() {
-      let file = {size: 10 * 1024};
+      let file = {size: MAX_FILE_SIZE - 100};
       const result = isLowerThenMaxFileSize(file);
       expect(result).to.be.a('Boolean');
       expect(result).to.be.true;
     });
     it('Should return false if number greater then MAX_FILE_SIZE', function() {
-      let file = {size: 10 * 1024 * 1024};
+      let file = {size: MAX_FILE_SIZE * 2};
       const result = isLowerThenMaxFileSize(file);
       expect(result).to.be.a('Boolean');
       expect(result).to.be.false;
@@ -37,8 +37,8 @@ describe('Utils suite', function() {
     });
     it('Should filter files with file size greater then MAX_FILE_SIZE', function() {
       let files = [
-        {size: 2 * 1024 * 1024}, 
-        {size: 512 * 1024}
+        {size: MAX_FILE_SIZE * 10}, 
+        {size: MAX_FILE_SIZE - 100}
       ];
       let filteredFiles = filterMaxFileSize(files);
       expect(filteredFiles).to.have.lengthOf(1);
@@ -46,8 +46,8 @@ describe('Utils suite', function() {
     });
     it('Should not filter files with file size lower then MAX_FILE_SIZE', function() {
       let files = [
-        {size: 720 * 1024},
-        {size: 512 * 1024}
+        {size: MAX_FILE_SIZE - 200},
+        {size: MAX_FILE_SIZE - 100}
       ];
       let filteredFiles = filterMaxFileSize(files);
       expect(filteredFiles).to.have.lengthOf(2);

@@ -16,7 +16,7 @@ class DetectFaceTestCaseWithFaces(unittest.TestCase):
         self.assertEqual(len(rv_as_list), 1)
 
     def test_detect_png(self):
-        """Uses png image that has one face  to test response of detect method from facelook
+        """Uses png image that has one face to test response of detect method from facelook
 
         """
         rv = detect(self, '1.png')
