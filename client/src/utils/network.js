@@ -8,23 +8,32 @@ const online$ = Observable.create(function(ob) {
     console.info('Online!');
     ob.onNext(ev);
   }, false);
-});
+}).do(removeOfflineStatus);
 
 const offline$ = Observable.create(function(ob) {
   window.addEventListener('offline', function(ev) {
     console.warn('Offline!');
     ob.onNext(ev);
   }, false);
-});
+}).do(addOfflineStatus);
 
-export const network$ = offline$.merge(online$).do(onlineStatus);
+export const network$ = offline$.merge(online$);
+
+/**
+ * Offline status displayer
+ * @param  {Event} ev [description]
+ */
+function addOfflineStatus(ev) {
+  filesLabel.disabled = true;
+  msg.classList.add('b-header__network-status--offline');
+}
 
 /**
  * Online status displayer
  * @param  {Event} ev [description]
  */
-function onlineStatus(ev) {
-  console.info('toggled');
-  filesLabel.disabled = !filesLabel.disabled;
-  msg.classList.toggle('b-header__network-status--offline');
+function removeOfflineStatus(ev) {
+  filesLabel.disabled = false;
+  msg.classList.remove('b-header__network-status--offline');
 }
+
