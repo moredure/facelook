@@ -14,7 +14,6 @@ docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook
 ```
 Last string cause builded docker container to run in background mode and forwards it port 80 to host port 80.
 
-
 ### Pull Docker image from Docker registry
 If you want up our application you simply can pull Docker image from registry and then run it like in the previous paragraph.
 ```sh
