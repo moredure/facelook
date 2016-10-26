@@ -23,6 +23,12 @@ describe('Utils suite', function() {
       expect(result).to.be.a('Boolean');
       expect(result).to.be.true;
     });
+    it('Should return false if number greater then MAX_FILE_SIZE', function() {
+      let file = {size: 10 * 1024 * 1024};
+      const result = isLowerThenMaxFileSize(file);
+      expect(result).to.be.a('Boolean');
+      expect(result).to.be.false;
+    });
   });
 
   describe('filterMaxFileSize', function() {
@@ -37,6 +43,15 @@ describe('Utils suite', function() {
       let filteredFiles = filterMaxFileSize(files);
       expect(filteredFiles).to.have.lengthOf(1);
       expect(filteredFiles[0]).to.deep.equal(files[1]);
+    });
+    it('Should not filter files with file size lower then MAX_FILE_SIZE', function() {
+      let files = [
+        {size: 720 * 1024},
+        {size: 512 * 1024}
+      ];
+      let filteredFiles = filterMaxFileSize(files);
+      expect(filteredFiles).to.have.lengthOf(2);
+      expect(filteredFiles).to.include.members(files);
     });
   });
 
