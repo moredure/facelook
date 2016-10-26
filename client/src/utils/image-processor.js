@@ -81,7 +81,10 @@ export function renderFaces([faces, photo]) {
     ctx.strokeStyle = '#507299';
     faces.forEach(face => ctx.strokeRect(...face));
   } else {
-    ctx.arc(25, 20, 10, 0, 2 * Math.PI, false);
+    let base = canvas.height < canvas.width ? canvas.height : canvas.width;
+    let radius = base * 0.05;
+    let position = radius * 1.5;
+    ctx.arc(position, position, radius, 0, 2 * Math.PI, false);
     ctx.fillStyle = 'red';
     ctx.fill();
     ctx.lineWidth = 5;
