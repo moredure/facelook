@@ -8,14 +8,14 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <title>Facelook by mikefaraponov</title>
+    <title>facelook v1.0.2 by mikefaraponov</title>
   </head>
 
   <body>
 
     <header>
       <div class="container">
-        <h1>Facelook</h1>
+        <h1>facelook v1.0.2</h1>
         <h2>Face detection web service</h2>
 
         <section id="downloads">
@@ -28,13 +28,11 @@
 
     <div class="container">
       <section id="main_content">
-        <h1>
-<a id="facelook" class="anchor" href="#facelook" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>facelook</h1>
-
-<h2>
+        <h2>
 <a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h2>
 
-<p>Face detection web service.</p>
+<p>Face detection web service.
+Project created as part of the course Agile Methodologies in ONPU with the support of Sigma Software Ukraine mentors.</p>
 
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
@@ -42,13 +40,21 @@
 <h3>
 <a id="build-docker-image" class="anchor" href="#build-docker-image" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build Docker image</h3>
 
-<p>build.sh script requires pre-installed node.js/npm and docker with created user group docker for running without sudo permissions.</p>
+<p>build.sh script requires pre-installed <a href="https://nodejs.org/en/download/package-manager">node/npm</a> and <a href="https://docs.docker.com/engine/installation/">Docker</a> with created user group docker for running without sudo permissions.</p>
 
 <div class="highlight highlight-source-shell"><pre>chmod +x build.sh
 ./build.sh
-docker run -d --restart=always -p 80:80 -t mikefaraponov/facelook</pre></div>
+docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook</pre></div>
 
 <p>Last string cause builded docker container to run in background mode and forwards it port 80 to host port 80.</p>
+
+<h3>
+<a id="pull-docker-image-from-docker-registry" class="anchor" href="#pull-docker-image-from-docker-registry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pull Docker image from Docker registry</h3>
+
+<p>If you want up our application you simply can pull Docker image from registry and then run it like in the previous paragraph.</p>
+
+<div class="highlight highlight-source-shell"><pre>docker pull mikefaraponov/facelook:latest
+docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook</pre></div>
 
 <h3>
 <a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h3>
@@ -83,17 +89,35 @@ FLASK_APP=app/facelook.py FLASK_DEBUG=1 flask run --host=0.0.0.0</pre></div>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>/facelook
 nosetests</pre></div>
 
+<p>To run benchmarks:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>/facelook
+bash benchmarks.sh</pre></div>
+
 <p>For es6/scss client app:</p>
 
 <div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>/facelook/client
 npm <span class="pl-c1">test</span></pre></div>
 
-<p>This will run unit tests for javascripts via karma test runner</p>
+<p>This will run unit tests for javascripts via karma test runner. <strong><em>Do not run Karma in Vagrant! Virtualization system bug.</em></strong></p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>Facelook allows you to upload images or an image and then system mark all faces it find on it with blue squere or if nothing found mark image with red circle at the top left corner.</p>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Todo</h2>
+
+<ul>
+<li>[x] Vagrant support</li>
+<li>[x] Docker build script</li>
+<li>[ ] Travis CI</li>
+<li>[ ] More unit-tests</li>
+<li>[ ] Nginx https connections</li>
+<li>[ ] Monetization</li>
+<li>[ ] Google Analytics</li>
+</ul>
 
 <h2>
 <a id="credits" class="anchor" href="#credits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Credits</h2>
