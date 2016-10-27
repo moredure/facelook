@@ -34,7 +34,7 @@ function precache() {
 function fromCache(request) {
   return caches.open(CACHE).then(function(cache) {
     return cache.match(request).then(function(matching) {
-      return matching || Promise.reject('no-match');
+      return matching || fetch(request);
     });
   });
 }
