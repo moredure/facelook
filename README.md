@@ -7,9 +7,9 @@ Project created as part of the course Agile Methodologies in ONPU with the suppo
 ## Installation
 
 ### Build Docker image
-build.sh script requires pre-installed [node/npm](https://nodejs.org/en/download/package-manager) and [Docker](https://docs.docker.com/engine/installation/) with created user group docker for running without sudo permissions.
+Build requires pre-installed [Docker](https://docs.docker.com/engine/installation/) with created user group docker for running without sudo permissions.
 ```sh
-./build.sh
+docker build . -t mikefaraponov/facelook:latest
 docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook
 ```
 Last string cause builded docker container to run in background mode and forwards it port 80 to host port 80.
