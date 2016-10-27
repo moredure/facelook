@@ -15,3 +15,5 @@ build
 docs/output
 docs/_build/
 client/coverage
+app/static/css/style.css
+app/static/javascript/bundle.js
