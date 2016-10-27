@@ -9,7 +9,6 @@ Project created as part of the course Agile Methodologies in ONPU with the suppo
 ### Build Docker image
 build.sh script requires pre-installed [node/npm](https://nodejs.org/en/download/package-manager) and [Docker](https://docs.docker.com/engine/installation/) with created user group docker for running without sudo permissions.
 ```sh
-chmod +x build.sh
 ./build.sh
 docker run -d --restart=always -p 80:80 --net=host -t mikefaraponov/facelook
 ```
@@ -55,7 +54,7 @@ nosetests
 To run benchmarks:
 ```sh
 cd ~/facelook
-bash benchmarks.sh
+./benchmarks.sh
 ```
 For es6/scss client app:
 ```sh
