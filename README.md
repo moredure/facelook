@@ -69,6 +69,7 @@ Facelook allows you to upload images or an image and then system mark all faces 
 ## Todo
 - [x] Vagrant support
 - [x] Docker build script
+- [x] Docker automated build webhook
 - [ ] Travis CI
 - [ ] More unit-tests
 - [ ] Nginx https connections
