@@ -23,3 +23,4 @@ class DetectFaceTestCaseImageLibrary(unittest.TestCase):
         abs_file_path = os.path.join(os.path.dirname(__file__), folder)
         rv = detect_folder(self, abs_file_path)
         assert rv
+        
