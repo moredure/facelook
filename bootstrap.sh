@@ -11,11 +11,11 @@ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # Install python packages from requirements
-cd #{HOME}/#{PROJECT_NAME}
+cd /home/vagrant/facelook
 sudo pip install -r requirements.txt
 
 # Install Node.js packages from package.json
-cd #{HOME}/#{PROJECT_NAME}/client
+cd /home/vagrant/facelook/client
 npm install
 
 # Install Docker
@@ -34,4 +34,4 @@ sudo usermod -aG docker $USER
 # Then log out and log in to make changes to docker
 
 # Color Prompt
-sudo sed s/#force_color_prompt=yes/force_color_prompt=yes/ --in-place #{HOME}/.bashrc
+sudo sed s/#force_color_prompt=yes/force_color_prompt=yes/ --in-place /home/vagrant/.bashrc
