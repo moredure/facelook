@@ -8,6 +8,6 @@ DOM.ready().subscribe(App);
 if (NODE_ENV === 'production') {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/cache.js')
-      .catch(console.error.bind(console, 'Error:'));
+      .catch(console.error.bind(console, 'Service worker:'));
   }
 }

@@ -1,7 +1,7 @@
 import os
 import unittest
 from app import application
-from tests.detect import detect, detect_folder
+from tests.detect import detect_folder
 
 class DetectFaceTestCaseImageLibrary(unittest.TestCase):
     def setUp(self):

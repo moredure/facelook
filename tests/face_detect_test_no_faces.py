@@ -1,6 +1,6 @@
 import unittest
 from app import application
-from detect import detect, detect_folder
+from detect import detect
 
 class DetectFaceTestCaseNoFaces(unittest.TestCase):
     def setUp(self):
