@@ -9,10 +9,10 @@ import {
   toArray, 
   isImage,
   normalizeFiles
-} from '../src/utils/image-processor';
+} from '../src/streams/image-processor';
 import {MAX_FILE_SIZE, EXTENSIONS_WHITELIST} from '../src/config';
 
-describe('Utils suite', function() {
+describe('Image processor suite', function() {
   describe('isLowerThenMaxFileSize', function() {
     it('Should be an function', function() {
       expect(isLowerThenMaxFileSize).to.be.an('function');

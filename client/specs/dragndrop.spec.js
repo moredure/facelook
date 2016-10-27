@@ -1,4 +1,4 @@
-import {dragndrop$} from '../src/utils/dragndrop';
+import {dragndrop$} from '../src/streams/dragndrop';
 import {Observable} from 'rx-dom';
 
 describe('Drag & Drop effects suite', function() {

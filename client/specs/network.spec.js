@@ -1,4 +1,4 @@
-import {network$} from '../src/utils/network';
+import {network$} from '../src/streams/network';
 import {Observable} from 'rx-dom';
 
 describe('Network check suite', function() {

@@ -1,5 +1,6 @@
+import './styles/index.scss';
 import {DOM} from 'rx-dom';
-import {App} from './main';
+import {App} from './streams';
 
 DOM.ready().subscribe(App);
 

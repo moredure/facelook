@@ -1,39 +1,24 @@
-import './styles/index.scss';
-import {network$} from './utils/network';
 import {Observable, DOM} from 'rx-dom';
-import {faceDetectionAPI} from './api';
-import {dragndrop$, dropZone$} from './utils/dragndrop';
+import {faceDetectionAPI} from '../api';
+import {dropZone$} from './dragndrop';
+import {resultsClose$} from './close';
 import {
   normalizeFiles, toArray,
   filterMaxFileSize, filterImages,
   filterImagesInWhiteList, toObservable,
   normalizeForCanvassing, renderFaces,
   removeChildren
-} from './utils/image-processor';
+} from './image-processor';
 
 const uploadInput = document.getElementById('js-files');
 const results = document.getElementById('js-results');
-const resultsClose = document.getElementById('js-results__close');
 const resultsImages = document.getElementById('js-results__images');
 const uploadInput$ = DOM.fromEvent(uploadInput, 'change');
-const resultsClose$ = DOM.click(resultsClose).do(clearResultsImages);
 
 export const upload$ = dropZone$
   .merge(uploadInput$)
   .flatMap(processFacesFactory)
   .do(renderToResults);
-
-/**
- * Initialization
- */
-export function App() {
-  console.info('Started!');
-  dragndrop$
-    .merge(upload$)
-    .merge(resultsClose$)
-    .merge(network$)
-    .subscribe();
-}
 
 /**
  * Process faces and then render it on canvas
@@ -57,14 +42,6 @@ export function processFacesFactory(ev) {
     .bufferWithCount(2)
     .map(renderFaces)
     .takeUntil(resultsClose$);
-}
-
-/**
- * Clear html nodes from b-results__images
- */
-export function clearResultsImages() {
-  results.classList.remove('b-results--active');
-  removeChildren(resultsImages);
 }
 
 /**
