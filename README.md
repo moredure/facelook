@@ -62,7 +62,7 @@ For es6/scss client app:
 cd ~/facelook/client
 npm test
 ```
-This will run unit tests for javascripts via karma test runner
+This will run unit tests for javascripts via karma test runner. ***Do not run Karma in Vagrant! Virtualization system bug.***
 
 ## Usage
 Facelook allows you to upload images or an image and then system mark all faces it find on it with blue squere or if nothing found mark image with red circle at the top left corner.
