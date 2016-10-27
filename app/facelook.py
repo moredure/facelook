@@ -4,10 +4,10 @@ from numpy import asarray, uint8
 from flask import Flask, request, send_from_directory
 from flask_cors import cross_origin
 from flask_jsontools import jsonapi
-from config import CASCADE_PATH, WHITELIST
+from config import CASCADE_PATH, WHITELIST, MAX_CONTENT_LENGTH
 
 application = Flask(__name__)
-application.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+application.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 
 @application.route('/api/detect', methods=['POST'])
 @cross_origin()
