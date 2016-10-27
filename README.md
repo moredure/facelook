@@ -52,6 +52,11 @@ For flask application:
 cd ~/facelook
 nosetests
 ```
+To run benchmarks:
+```sh
+cd ~/facelook
+bash benchmarks.sh
+```
 For es6/scss client app:
 ```sh
 cd ~/facelook/client
