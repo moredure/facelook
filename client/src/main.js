@@ -18,24 +18,6 @@ const resultsImages = document.getElementById('js-results__images');
 const uploadInput$ = DOM.fromEvent(uploadInput, 'change');
 const resultsClose$ = DOM.click(resultsClose).do(clearResultsImages);
 
-export const processFacesFactory = ev => {
-  return Observable.of(ev)
-    .map(normalizeFiles)
-    .map(toArray)
-    .map(filterMaxFileSize)
-    .map(filterImages)
-    .map(filterImagesInWhiteList)
-    .do(wait)
-    .flatMap(toObservable)
-    .do(loadStart)
-    .concatMap(faceDetectionAPI)
-    .bufferWithCount(2)
-    .concatMap(normalizeForCanvassing)
-    .bufferWithCount(2)
-    .map(renderFaces)
-    .takeUntil(resultsClose$);
-};
-
 export const upload$ = dropZone$
   .merge(uploadInput$)
   .flatMap(processFacesFactory)
@@ -51,6 +33,30 @@ export function App() {
     .merge(resultsClose$)
     .merge(network$)
     .subscribe();
+}
+
+/**
+ * Process faces and then render it on canvas
+ * @param  {Event} ev file change or drag & drop event
+ * @return {Observable} return observable stream with results
+ * of rendering faces
+ */
+export function processFacesFactory(ev) {
+  return Observable.of(ev)
+    .map(normalizeFiles)
+    .map(toArray)
+    .map(filterMaxFileSize)
+    .map(filterImages)
+    .map(filterImagesInWhiteList)
+    .do(wait)
+    .flatMap(toObservable)
+    .do(loadStart)
+    .concatMap(faceDetectionAPI)
+    .bufferWithCount(2)
+    .concatMap(normalizeForCanvassing)
+    .bufferWithCount(2)
+    .map(renderFaces)
+    .takeUntil(resultsClose$);
 }
 
 /**
