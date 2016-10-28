@@ -4,6 +4,7 @@ const path = require('path');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: path.join(__dirname, '/src/index.js'),
@@ -27,7 +28,8 @@ module.exports = {
     loaders: [
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css?minimize!sass')
+        loader: ExtractTextPlugin.extract('style-loader', 
+          'css?minimize!postcss!sass')
       },
       {
         test: /\.js$/,
@@ -40,6 +42,7 @@ module.exports = {
       }
     ]
   },
+  postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
   plugins: [
     new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('../css/style.css'),
