@@ -56,8 +56,13 @@
         animation-duration: 1s;
         animation-iteration-count: infinite;
         opacity: 0.8;
-        &--completed {
-            display: none;
-        }
+    }
+    &__error {
+        height: 100px;
+        width: 100px;
+        background: transparent url(../images/error.svg) center center no-repeat;
+        background-size: 100% 100%;
+        margin: 40px auto;
+        opacity: 0.8;
     }
 }

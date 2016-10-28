@@ -6,8 +6,7 @@ import {
   normalizeFiles, toArray,
   filterMaxFileSize, filterImages,
   filterImagesInWhiteList, toObservable,
-  normalizeForCanvassing, renderFaces,
-  removeChildren
+  normalizeForCanvassing, renderFaces
 } from './image-processor';
 
 const uploadInput = document.getElementById('js-files');
@@ -41,14 +40,36 @@ export function processFacesFactory(ev) {
     .concatMap(normalizeForCanvassing)
     .bufferWithCount(2)
     .map(renderFaces)
-    .takeUntil(resultsClose$);
+    .takeUntil(resultsClose$)
+    .catch(addErrorStatus);
+}
+
+/**
+ * Return created div
+ * @return {Node} div element
+ */
+function createDiv() {
+  return document.createElement('div');
+}
+
+/**
+ * Added error status to the end of previous loaded images
+ */
+function addErrorStatus() {
+  let uploads = resultsImages.getElementsByClassName('b-results__loading');
+  toArray(uploads).forEach(el => {
+    resultsImages.removeChild(el);
+  });
+  let error = createDiv();
+  error.classList.add('b-results__error');
+  resultsImages.appendChild(error);
 }
 
 /**
  * Add loading bar to the UI
  */
 export function loadStart() {
-  const loadBar = document.createElement('div');
+  const loadBar = createDiv();
   loadBar.classList.add('b-results__loading');
   resultsImages.appendChild(loadBar);
 }
@@ -66,12 +87,7 @@ export function wait(files) {
  * @param {Image} image image to render
  */
 export function renderToResults(image) {
-  console.log(image);
   const loadBars = document.getElementsByClassName('b-results__loading');
-  if (loadBars.length) {
-    const loadBar = toArray(loadBars).shift();
-    resultsImages.replaceChild(image, loadBar);
-  } else {
-    removeChildren(resultsImages);
-  }
+  const loadBar = toArray(loadBars).shift();
+  resultsImages.replaceChild(image, loadBar);
 }
