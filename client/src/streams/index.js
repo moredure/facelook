@@ -7,7 +7,6 @@ import {resultsClose$} from './close';
  * Initialization
  */
 export function App() {
-  console.info('Started!');
   dragndrop$
     .merge(upload$)
     .merge(resultsClose$)
