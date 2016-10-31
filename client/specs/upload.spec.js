@@ -26,8 +26,13 @@ describe('Upload suite', function() {
     });
   });
   describe('upload$', function() {
-    it('Should be an function', function() {
+    it('Should be an Observable', function() {
       expect(upload$).to.be.an.instanceof(Observable);
+    });
+  });
+  describe('loadEnd', function() {
+    it('Should be an function', function() {
+      expect(loadEnd).to.be.an('function');
     });
   });
 });

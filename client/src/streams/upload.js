@@ -34,13 +34,13 @@ export function processFacesFactory(ev) {
     .map(filterImagesInWhiteList)
     .do(wait)
     .flatMap(toObservable)
-    .do(loadStart)
     .concatMap(faceDetectionAPI)
     .bufferWithCount(2)
     .concatMap(normalizeForCanvassing)
     .bufferWithCount(2)
     .map(renderFaces)
     .takeUntil(resultsClose$)
+    .finally(loadEnd)
     .catch(addErrorStatus);
 }
 
@@ -54,24 +54,32 @@ function createDiv() {
 
 /**
  * Added error status to the end of previous loaded images
+ * @return {Observable} observable
  */
 function addErrorStatus() {
-  let uploads = resultsImages.getElementsByClassName('b-results__loading');
-  toArray(uploads).forEach(el => {
-    resultsImages.removeChild(el);
-  });
   let error = createDiv();
   error.classList.add('b-results__error');
   resultsImages.appendChild(error);
+  return Observable.empty();
 }
 
 /**
  * Add loading bar to the UI
  */
 export function loadStart() {
-  const loadBar = createDiv();
+  let loadBar = createDiv();
   loadBar.classList.add('b-results__loading');
   resultsImages.appendChild(loadBar);
+}
+
+/**
+ * Remove loading bar
+ */
+export function loadEnd() {
+  let loadBar = document.querySelector('.b-results__loading');
+  if (loadBar) {
+    loadBar.parentNode.removeChild(loadBar);
+  }
 }
 
 /**
@@ -79,7 +87,10 @@ export function loadStart() {
  * @param {Array} files array of files
  */
 export function wait(files) {
-  if (files.length) results.classList.add('b-results--active');
+  if (files.length) {
+    results.classList.add('b-results--active');
+    loadStart();
+  }
 }
 
 /**
@@ -87,7 +98,6 @@ export function wait(files) {
  * @param {Image} image image to render
  */
 export function renderToResults(image) {
-  const loadBars = document.getElementsByClassName('b-results__loading');
-  const loadBar = toArray(loadBars).shift();
-  resultsImages.replaceChild(image, loadBar);
+  let loadBar = document.querySelector('.b-results__loading');
+  resultsImages.insertBefore(image, loadBar);
 }
