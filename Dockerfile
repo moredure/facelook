@@ -32,7 +32,7 @@ COPY client/package.json /home/facelook/client/
 WORKDIR /home/facelook/client
 RUN npm i --no-optional
 COPY client/. /home/facelook/client
-RUN npm run build
+RUN npm run build && rm -rf /home/facelook/client
 
 COPY uwsgi.ini /home/facelook/uwsgi.ini
 COPY wsgi.py /home/facelook/wsgi.py
