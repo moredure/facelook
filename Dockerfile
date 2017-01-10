@@ -1,5 +1,4 @@
 FROM ubuntu:14.04
-MAINTAINER Dockerfiles
 
 RUN apt-get update && apt-get install --force-yes -y \
     git \
